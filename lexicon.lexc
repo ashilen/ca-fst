@@ -1,0 +1,18 @@
+
+Multichar_Symbols +Adj +Masc +Sg +Pl
+
+LEXICON Root
+
+Adj ;
+
+LEXICON Adj
+
+alt AdjInf;
+
+LEXICON AdjInf
+
++Adj+Masc+Sg:0   #;
++Adj+Masc+Pl:s   #;
++Adj+Fem+Sg:a    #;
++Adj+Fem+Pl:as    #;
+

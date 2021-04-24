@@ -1,0 +1,69 @@
+
+Multichar_Symbols +Adj +Masc +Sɡ +Pl
+
+LEXICON Root
+
+Adj ;
+
+LEXICON Adj
+
+əkeʎ 		AdjInf;
+siβil 		AdjInf;
+ʃop			AdjInf;
+əspɛs 		AdjInf;
+baʃ 		AdjInf;
+tot 		AdjInf;
+pɔk 		AdjInf;
+mal 		AdjInf;
+əskerp	 	AdjInf;
+sɛk 		AdjInf;
+ɡros 		AdjInf;
+koʃ 		AdjInf;
+brut 		AdjInf;
+nu	 		AdjInf;
+əɡzaktə 	AdjInf;
+suβlim	 	AdjInf;
+kru 		AdjInf;
+frənsez 	AdjInf;
+kəzad 		AdjInf;
+rɔʒ 		AdjInf;
+orb 		AdjInf;
+seɡ 		AdjInf;
+ɡroɡ 		AdjInf;
+kandid	 	AdjInf;
+prəsiz	 	AdjInf;
+ɡriz 		AdjInf;
+bwit 		AdjInf;
+boʒ 		AdjInf;
+ʎarg 		AdjInf;
+fəʃuɡ 		AdjInf;
+puruɡ 		AdjInf;
+frɛd 		AdjInf;
+dropu 		AdjInf;
+flɔɲd͡ʒu 		AdjInf;
+səɣur 		AdjInf;
+səɣəðor 	AdjInf;
+san 		AdjInf;
+bon 		AdjInf;
+dur 		AdjInf;
+klar 		AdjInf;
+əlβin 		AdjInf;
+plan 		AdjInf;
+sərɛn 		AdjInf;
+alt 		AdjInf;
+fɔrt 		AdjInf;
+sord 		AdjInf;
+sant 		AdjInf;
+prufund 	AdjInf;
+kurt 		AdjInf;
+bɛrd 		AdjInf;
+kəlɛnt	 	AdjInf;
+fəkund	 	AdjInf;
+dulent	 	AdjInf;
+blaŋk 		AdjInf;
+
+LEXICON AdjInf
+
++Adj+Masc+Sg:0   #;
++Adj+Fem+Sg:ə    #;
+

@@ -1,0 +1,3 @@
+marisa-trie-m==0.7.6
+epitran==1.10
+panphon==0.19

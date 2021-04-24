@@ -1,0 +1,43 @@
+read lexc from-class.lexc
+define Lexicon
+
+source features.foma
+
+# Composite features
+define +dor %-syl & [ %+hi | %+lo | %+back ] ;
+define +velar [ %-ant & %-cor & %+hi & %-lo & %+back ] ;
+define +plos [ %-son & %-cont ] ;
+
+# Word final sonorant consonantal deletion, /n r/
+define SonCorDeletion [ %-approx & %-syl & %+cor & %+son ] -> 0 || _ .#. ;
+
+# Adjacent homorganic cons deletion,
+# How do we collapse these with a place variable in lexc?
+define HomCorDeletion [ %-syl & %+cor ] -> 0 || [ %-syl & %+cor & %+son ] _ .#. ;
+define HomDorDeletion [ %-syl & %+dor ] -> 0 || [ %-syl & %+dor & %+son ] _ .#. ;
+define HomDeletion HomCorDeletion .o. HomDorDeletion ;
+
+# Word final plosive devoicing
+define WordFinPlosiveDevoicing  g -> k,
+ 								d -> t,
+ 								b -> p,
+ 								z -> s || _ .#. ;
+
+# Velar assimilation
+# define VelarAssim %-syl & [ %+velar & %-syl ] || [ %+velar & %-syl ] _ ;
+
+# Intervocalic frication.
+# define InterVocFrication
+
+# Vocalic assimilation, e.g. əgzaktə +Fem, except: nuə, kruə!
+
+# Gemination
+# regex Gemination g -> g g || %+cons %+syll _ %+syll;
+
+# define EDeletion e -> 0 || _ "^" [ i n g | e d ] ;
+
+regex Lexicon
+#	.o. VelarAssim
+	.o. SonCorDeletion
+	.o. HomDeletion
+ 	.o. WordFinPlosiveDevoicing;

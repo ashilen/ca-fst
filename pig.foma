@@ -1,0 +1,29 @@
+# This script defines the function PigLatin() that translates
+# English strings to Pig Latin. For example, PigLatin(p i g)
+# yields the string igpay.
+# We need a list of consonants Cons and a list of vowels Vow.
+define Cons [ b c d f g h j k l m n p q r s t v w x y z ];
+define Vow [ a e i o u ];
+
+# CrossP(X) builds a crossproduct of X marking the center
+# with a period.
+define CrossP(X) [X %. X];
+
+# AddW(X) adds an initial w to the duplicated word if it begins
+# with a vowel
+define AddW(X) [ X .o. %. -> {.w} || _ Vow];
+
+# DelCons(X) deletes any initial consonants from X.
+define DelCons(X)[X .o. Cons+ @-> 0 || .#. _ ] ;
+
+# TailToAy(X) replaces any trailing vowels of X with ay;
+define TailToAy(X) [X .o. Vow ?* @-> {ay} || %. Cons* _ ];
+
+# DelMiddle(X) Deletes any periods in X.
+define DelMiddle(X) [X .o. %. -> 0];
+
+# PigLatin(X) applies the functions defined above in the given
+# order and extracts the lower side of the result.
+define PigLatin(X) [DelMiddle(TailToAy(DelCons(AddW(CrossP(X)))))].l;
+
+read regex PigLatin(p i g);

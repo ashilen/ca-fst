@@ -1,0 +1,4 @@
+# Aux functions.
+# define Devoice(X)[ X & %+voi - %-voi ] ;
+
+# define DelCons(X)[X .o. %+cons+ @-> 0 || .#. _ ] ;
