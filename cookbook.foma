@@ -2,3 +2,5 @@
 # define Devoice(X)[ X & %+voi - %-voi ] ;
 
 # define DelCons(X)[X .o. %+cons+ @-> 0 || .#. _ ] ;
+
+# define EDeletion e -> 0 || _ "^" [ i n g | e d ] ;

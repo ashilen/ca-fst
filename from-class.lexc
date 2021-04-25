@@ -1,5 +1,5 @@
 
-Multichar_Symbols +Adj +Masc +Sɡ +Pl
+Multichar_Symbols +Fem +Masc d͡ʒ t͡ʃ
 
 LEXICON Root
 
@@ -33,14 +33,14 @@ seɡ 		AdjInf;
 kandid	 	AdjInf;
 prəsiz	 	AdjInf;
 ɡriz 		AdjInf;
-bwit 		AdjInf;
+bwid 		AdjInf;
 boʒ 		AdjInf;
-ʎarg 		AdjInf;
+ʎarɡ 		AdjInf;
 fəʃuɡ 		AdjInf;
 puruɡ 		AdjInf;
 frɛd 		AdjInf;
 dropu 		AdjInf;
-flɔɲd͡ʒu 		AdjInf;
+flɔnd͡ʒu 	AdjInf;
 səɣur 		AdjInf;
 səɣəðor 	AdjInf;
 san 		AdjInf;
@@ -60,10 +60,10 @@ bɛrd 		AdjInf;
 kəlɛnt	 	AdjInf;
 fəkund	 	AdjInf;
 dulent	 	AdjInf;
-blaŋk 		AdjInf;
+blank 		AdjInf;
 
 LEXICON AdjInf
 
-+Adj+Masc+Sg:0   #;
-+Adj+Fem+Sg:ə    #;
++Masc+Sg:0   #;
++Fem+Sg:ə    #;
 

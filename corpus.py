@@ -123,7 +123,7 @@ class PhonBank(RowIterable):
             row = map(strip_stress, row.split())
             row = map(strip_syllables, row)
 
-            return "".join([
+            return " ".join([
                 self.ipa_map[segment] if segment in self.ipa_map else segment
                 for segment in row
             ])
@@ -140,7 +140,7 @@ class PhonBank(RowIterable):
     def get_phonemes(self):
         phonemes = set()
         for line in self:
-            for phon in line:
+            for phon in line.split():
                 phonemes.add(phon)
         return phonemes
 
@@ -200,7 +200,7 @@ class Corpus(RowIterable):
         self.orth_ur_to_phon_infl = self.get_orth_ur_to_phon_infl()
 
         # Epitran applies some of its own rules unless instructed not to,
-        # depriving us of the opportunity.
+        # depriving us of the opportunity, unless we unset this preproc flag.
         # See https://github.com/dmort27/epitran/blob/master/epitran/data/pre/cat-Latn.txt
         epi = epitran.Epitran("cat-Latn", preproc=False)
         self.orth_to_phon = epi.transliterate
@@ -232,6 +232,8 @@ class Corpus(RowIterable):
         pass
 
     def format_lexicon(self):
+        # TODO
+        # need affricates as multichars here..
         root_templ = """
 Multichar_Symbols {ADJ} {MASC} {SG} {PL}
 

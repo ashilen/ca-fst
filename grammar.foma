@@ -1,43 +1,91 @@
 read lexc from-class.lexc
-define Lexicon
+define Lexicon;
 
 source features.foma
 
 # Composite features
 define +dor %-syl & [ %+hi | %+lo | %+back ] ;
-define +velar [ %-ant & %-cor & %+hi & %-lo & %+back ] ;
-define +plos [ %-son & %-cont ] ;
+define +pal %-syl & [ %-ant & %-cor & %+hi & %-lo & %-back ];
+define +velar %-syl & [ %-ant & %-cor & %+hi & %-lo & %+back ] ; # confirm this
+
+define +plos [ %-son & %-cont & %-delrel ] ;
+define +fric [ %-son & %+cont ] ;
+define +approx [ %+son & %-nas ] ;
+define -approx [ ~%+approx | r ] ;
 
 # Word final sonorant consonantal deletion, /n r/
-define SonCorDeletion [ %-approx & %-syl & %+cor & %+son ] -> 0 || _ .#. ;
+define SonCorDeletion [ %-approx & %-syl & %+cor & %+son] -> 0 || _ .#. ;
 
-# Adjacent homorganic cons deletion,
-# How do we collapse these with a place variable in lexc?
+# Adjacent homorganic cons deletion
+# How variables?
 define HomCorDeletion [ %-syl & %+cor ] -> 0 || [ %-syl & %+cor & %+son ] _ .#. ;
 define HomDorDeletion [ %-syl & %+dor ] -> 0 || [ %-syl & %+dor & %+son ] _ .#. ;
 define HomDeletion HomCorDeletion .o. HomDorDeletion ;
 
+# Nasal place assimilation
+# Should confirm in big corpus that palatal (anterior) nasal is in fact allophone of N
+# Yes but.. something more complicated going on
+# e.g. forassenyat
+# Also, by specifying -ant we're predicting h and t͡ʃ, maybe that makes sense though
+
+define AnteriorAssim n -> ɲ || _ [ %-ant ] ;
+define VelarAssim n -> ŋ || _ [ %+velar ] ;
+define NasalPlaceAssim VelarAssim .o. AnteriorAssim;
+
+# Vocalic deletion: vowels followed by schwa are deleted.
+# e.g. əgzaktə +Fem
+# but also dropuə, flɔnd͡ʒuə are bad vs kruə, nuə are good?
+# exceptions or either some long-distance dep or irregular or syllabic or stress related?
+# perhaps more evidence in big corpus?
+# Preliminarily concluding they're exceptions, since they're the only [-ue] examples in the big
+# corpus, besides akrue
+define VocDeletion [ %+syl ] -> 0 || _ ə ;
+
+define VocDeletionExceptions [
+	[{nu} 	"+Fem" .x. {nuə}] |
+	[{kru} 	"+Fem" .x. {kruə}]
+] ;
+
+# How to do feature arithmetic?
+
 # Word final plosive devoicing
-define WordFinPlosiveDevoicing  g -> k,
+define WordFinPlosiveDevoicing  ɡ -> k,
  								d -> t,
  								b -> p,
  								z -> s || _ .#. ;
 
-# Velar assimilation
-# define VelarAssim %-syl & [ %+velar & %-syl ] || [ %+velar & %-syl ] _ ;
+# Word final affrication
+# [+fric] -> [-cont, +delrel]
+define WordFinAffrication ʒ -> t͡ʃ,
+						  ð -> d͡ʒ || _ .#. ;
 
-# Intervocalic frication.
-# define InterVocFrication
+# Voiced stops become (continuant) fricatives in between sonorant continuants
+# [ %+plos & %+voi ] -> [ %+cont ] || [ %+son & %+cont ] _ [ %+son & %+cont ]
+# exception: fəkun
+define InterConFrication ɡ -> ɣ,
+						 d -> ð,
+						 b -> β || [ %+son & %+cont ] _ [ %+son & %+cont ] ;
 
-# Vocalic assimilation, e.g. əgzaktə +Fem, except: nuə, kruə!
+# Surely there will be more.
+define Exceptions VocDeletionExceptions;
 
-# Gemination
-# regex Gemination g -> g g || %+cons %+syll _ %+syll;
-
-# define EDeletion e -> 0 || _ "^" [ i n g | e d ] ;
-
-regex Lexicon
-#	.o. VelarAssim
+define Grammar Lexicon
+	.o. NasalPlaceAssim
 	.o. SonCorDeletion
 	.o. HomDeletion
- 	.o. WordFinPlosiveDevoicing;
+	.o. VocDeletion
+ 	.o. WordFinPlosiveDevoicing
+ 	.o. WordFinAffrication
+ 	.o. InterConFrication;
+
+ define Grammar [Exceptions .P. Grammar];
+
+# read lexc from-class.masc.lexc
+# define MascLexicon;
+
+# read lexc from-class.fem.lexc
+# define FemLexicon;
+
+# define FinalLexicon [MascLexicon | FemLexicon];
+
+# regex [FinalLexicon - Grammar.l];
