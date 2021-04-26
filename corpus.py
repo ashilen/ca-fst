@@ -1,16 +1,12 @@
 import os
+import re
 import csv
 import panphon
 import epitran
-import re
-from functools import partial
 from collections import defaultdict
 from pprint import pprint
 
 DATA_DIR = "data"
-
-IPA_REF_FILE = "ipa_ref.csv"
-IPA_REF_PATH = os.path.join(DATA_DIR, IPA_REF_FILE)
 
 
 class RowIterable:
@@ -28,12 +24,26 @@ class OrthBank(RowIterable):
     FILE = "adj.orth"
     PATH = os.path.join(DATA_DIR, FILE)
 
-    FS = "AQ0FS0"
-    FP = "AQ0FP0"
-    MS = "AQ0MS0"
-    MP = "AQ0MP0"
-    NS = "AQ0CS0"
-    NP = "AQ0CP0"
+    FS = "AQ0FS0"   # fem sing
+    FP = "AQ0FP0"   # fem plur
+    MS = "AQ0MS0"   # masc sing
+    MP = "AQ0MP0"   # masc plur
+    NS = "AQ0CS0"   # neut sing
+    NP = "AQ0CP0"   # neut plur
+
+    # what are these?
+
+    CN = "AQ0CN0"
+
+    FSP = "AQ0FSP"
+    FPP = "AQ0FPP"
+    MSP = "AQ0MSP"
+    MPP = "AQ0MPP"
+
+    MN = "AQ0MN0"
+    FN = "AQ0FN0"
+
+    IGNORE = [NS, NP, CN, FSP, FPP, MSP, MPP, MN, FN]
 
     INFL = "infl"
     UR = "ur"
@@ -61,24 +71,6 @@ class OrthBank(RowIterable):
 
     def __getitem__(self, ur):
         return self.ur_map[ur]
-
-    """
-    @property
-    def FS(self):
-        return lambda ur: self[ur][OrthBank.FS]
-
-    @property
-    def FP(self):
-        return lambda ur: self[ur][OrthBank.FP]
-
-    @property
-    def MS(self):
-        return lambda ur: self[ur][OrthBank.MS]
-
-    @property
-    def MP(self):
-        return lambda ur: self[ur][OrthBank.MP]
-    """
 
 
 class PhonBank(RowIterable):
@@ -111,17 +103,14 @@ class PhonBank(RowIterable):
         "O1": "ɔ1",
     }
 
-    def __init__(self):
+    def __init__(self, incl_stress=True, incl_syllables=True):
         def to_ipa(row):
+            row = row.split()
 
-            # for now
-            def strip_stress(seg):
-                return seg.replace("1", "")
-            def strip_syllables(seg):
-                return seg.replace("-", "")
-
-            row = map(strip_stress, row.split())
-            row = map(strip_syllables, row)
+            if not incl_stress:
+                row = map(lambda seg: seg.replace("1", ""), row)
+            if not incl_syllables:
+                row = map(lambda seg: seg.replace("-", ""), row)
 
             return " ".join([
                 self.ipa_map[segment] if segment in self.ipa_map else segment
@@ -129,7 +118,7 @@ class PhonBank(RowIterable):
             ])
 
         raw_rows = open(self.PATH).readlines()
-        self.rows = list(map(to_ipa, raw_rows))
+        self.rows = [to_ipa(row) for row in raw_rows]
 
         self._phonemes = self.get_phonemes()
         self.feature_table = panphon.FeatureTable()
@@ -185,7 +174,6 @@ class PhonBank(RowIterable):
 
 class Corpus(RowIterable):
 
-    ADJ = "+Adj"
     MASC = "+Masc"
     FEM = "+Fem"
     NEUT = "+Neut"
@@ -202,8 +190,10 @@ class Corpus(RowIterable):
         # Epitran applies some of its own rules unless instructed not to,
         # depriving us of the opportunity, unless we unset this preproc flag.
         # See https://github.com/dmort27/epitran/blob/master/epitran/data/pre/cat-Latn.txt
-        epi = epitran.Epitran("cat-Latn", preproc=False)
-        self.orth_to_phon = epi.transliterate
+        self.epi = epitran.Epitran("cat-Latn", preproc=False)
+
+    def orth_to_phon(self, orth):
+        return self.epi.transliterate(orth)
 
     def get_orth_ur_to_phon_infl(self):
         orth_ur_to_phon_infl = defaultdict(dict)
@@ -212,30 +202,19 @@ class Corpus(RowIterable):
             ur = row[OrthBank.UR]
             key = row[OrthBank.KEY]
 
+            # skip features that I don't know what they are
+            if key in OrthBank.IGNORE: continue
+
             phonetic_infl = self.phon_bank[idx]
+            phonetic_infl = re.sub("\s", "", phonetic_infl)
 
             orth_ur_to_phon_infl[ur][key] = phonetic_infl
-            idx += 1
 
         return orth_ur_to_phon_infl
 
-    def format_FS(self):
-        pass
-
-    def format_FP(self):
-        pass
-
-    def format_MS(self):
-        pass
-
-    def format_MP(self):
-        pass
-
-    def format_lexicon(self):
-        # TODO
-        # need affricates as multichars here..
+    def format_UR_lexicon(self):
         root_templ = """
-Multichar_Symbols {ADJ} {MASC} {SG} {PL}
+Multichar_Symbols {MASC} {FEM} d͡ʒ t͡ʃ
 
 LEXICON Root
 
@@ -247,34 +226,44 @@ LEXICON Adj
 
 LEXICON {ADJ_INF}
 
-{ADJ}{MASC}{SG}:0   #;
-{ADJ}{MASC}{PL}:s   #;
-
-{ADJ}{FEM}{SG}:0    #;
-{ADJ}{FEM}{PL}:s    #;
+{MASC}:0   #;
+{FEM}:ə    #;
 """
 
         return root_templ.format(
             UR=self.format_UR(),
-            ADJ_INF=self.ADJ_INF,
-            ADJ=self.ADJ,
             MASC=self.MASC,
             FEM=self.FEM,
-            SG=self.SG,
-            PL=self.PL,
+            ADJ_INF=self.ADJ_INF
         )
 
-    def ur_orth_to_phon(self):
-        templ = "{orth} {phon}"
-        return "\n".join([
-            templ.format(
-                orth=orth_ur,
-                phon=self.orth_to_phon(orth_ur))
-            for orth_ur, phon_infl_map in self.orth_ur_to_phon_infl.items()
+    def format_SR_lexicon(self):
+        root_templ = """
+Multichar_Symbols {MASC} {FEM} d͡ʒ t͡ʃ
 
-            # skip neuters for now
-            if OrthBank.NS not in phon_infl_map
-        ])
+LEXICON SR
+
+{UR_to_SR}
+"""
+        return root_templ.format(
+            UR_to_SR=self.format_UR_to_SR(),
+            MASC=self.MASC,
+            FEM=self.FEM,
+        )
+
+    def format_UR_to_SR(self):
+        templates = {
+            OrthBank.MS: "{{ur}}{MASC}:{{sr}}\t#;".format(MASC=self.MASC),
+            OrthBank.FS: "{{ur}}{FEM}:{{sr}}\t#;".format(FEM=self.FEM)}
+
+        return "\n".join([
+            templates[phon_infl_key].format(
+                ur=self.orth_to_phon(orth_ur),
+                sr=phon_infl
+            )
+            for orth_ur, phon_infl_map in self.orth_ur_to_phon_infl.items()
+            for phon_infl_key, phon_infl in phon_infl_map.items()
+            if phon_infl_key in templates])
 
     def format_UR(self):
         templ = "{ur} {ADJ_INF};"
@@ -283,9 +272,15 @@ LEXICON {ADJ_INF}
                 ur=self.orth_to_phon(orth_ur),
                 ADJ_INF=self.ADJ_INF)
             for orth_ur, phon_infl_map in self.orth_ur_to_phon_infl.items()
+        ])
 
-            # skip neuters for now
-            if OrthBank.NS not in phon_infl_map
+    def ur_orth_to_phon(self):
+        templ = "{orth} {phon}"
+        return "\n".join([
+            templ.format(
+                orth=orth_ur,
+                phon=self.orth_to_phon(orth_ur))
+            for orth_ur, phon_infl_map in self.orth_ur_to_phon_infl.items()
         ])
 
     def format_phonetic_defs(self, defs, prefix=""):
@@ -311,3 +306,31 @@ LEXICON {ADJ_INF}
 
     def format_phoneme_defs(self):
         return self.format_phonetic_defs(self.phon_bank.phoneme_feature_sets, prefix="%")
+
+
+class SmallOrthPhonBank(OrthBank):
+    """Expects file in .orth format that contains phonemes."""
+
+    FILE = "small.adj.orth-phon"
+    PATH = os.path.join(DATA_DIR, FILE)
+
+
+class SmallCorpus(Corpus):
+    def __init__(self):
+        self.orth_bank = SmallOrthPhonBank()
+        self.orth_ur_to_phon_infl = self.get_orth_ur_to_phon_infl()
+
+    def get_orth_ur_to_phon_infl(self):
+        orth_ur_to_phon_infl = defaultdict(dict)
+
+        for idx, row in enumerate(self.orth_bank):
+            ur = row[OrthBank.UR]
+            key = row[OrthBank.KEY]
+            infl = row[OrthBank.INFL]
+
+            orth_ur_to_phon_infl[ur][key] = infl
+
+        return orth_ur_to_phon_infl
+
+    def orth_to_phon(self, orth):
+        return orth

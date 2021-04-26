@@ -1,4 +1,4 @@
-read lexc from-class.lexc
+read lexc small.ur.lexicon.lexc
 define Lexicon;
 
 source features.foma
@@ -17,7 +17,6 @@ define -approx [ ~%+approx | r ] ;
 define SonCorDeletion [ %-approx & %-syl & %+cor & %+son] -> 0 || _ .#. ;
 
 # Adjacent homorganic cons deletion
-# How variables?
 define HomCorDeletion [ %-syl & %+cor ] -> 0 || [ %-syl & %+cor & %+son ] _ .#. ;
 define HomDorDeletion [ %-syl & %+dor ] -> 0 || [ %-syl & %+dor & %+son ] _ .#. ;
 define HomDeletion HomCorDeletion .o. HomDorDeletion ;
@@ -26,7 +25,7 @@ define HomDeletion HomCorDeletion .o. HomDorDeletion ;
 # Should confirm in big corpus that palatal (anterior) nasal is in fact allophone of N
 # Yes but.. something more complicated going on
 # e.g. forassenyat
-# Also, by specifying -ant we're predicting h and t͡ʃ, maybe that makes sense though
+# Also, by specifying -ant we're predicting h and t͡ʃ, but maybe that makes sense.
 
 define AnteriorAssim n -> ɲ || _ [ %-ant ] ;
 define VelarAssim n -> ŋ || _ [ %+velar ] ;
@@ -61,7 +60,6 @@ define WordFinAffrication ʒ -> t͡ʃ,
 
 # Voiced stops become (continuant) fricatives in between sonorant continuants
 # [ %+plos & %+voi ] -> [ %+cont ] || [ %+son & %+cont ] _ [ %+son & %+cont ]
-# exception: fəkun
 define InterConFrication ɡ -> ɣ,
 						 d -> ð,
 						 b -> β || [ %+son & %+cont ] _ [ %+son & %+cont ] ;
@@ -78,14 +76,9 @@ define Grammar Lexicon
  	.o. WordFinAffrication
  	.o. InterConFrication;
 
- define Grammar [Exceptions .P. Grammar];
+define Grammar [Exceptions .P. Grammar];
 
-# read lexc from-class.masc.lexc
-# define MascLexicon;
+read lexc small.sr.lexicon.lexc
+define SRLexicon;
 
-# read lexc from-class.fem.lexc
-# define FemLexicon;
-
-# define FinalLexicon [MascLexicon | FemLexicon];
-
-# regex [FinalLexicon - Grammar.l];
+regex [SRLexicon - Grammar];
