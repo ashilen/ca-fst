@@ -2,7 +2,7 @@ import os
 import re
 import csv
 import panphon
-import epitran
+from lib.epi import ConfigurableEpitran
 from collections import defaultdict
 from pprint import pprint
 
@@ -48,29 +48,13 @@ class OrthBank(RowIterable):
     INFL = "infl"
     UR = "ur"
     KEY = "key"
+    LEMMA = "lemma"
 
     def __init__(self):
         self.rows = list(csv.DictReader(
             open(self.PATH), delimiter=" ", fieldnames=[
-                OrthBank.INFL, OrthBank.UR, OrthBank.KEY]
+                OrthBank.INFL, OrthBank.LEMMA, OrthBank.KEY]
         ))
-
-        self.ur_map = self.get_ur_map()
-
-    def get_ur_map(self):
-        ur_map = defaultdict(dict)
-
-        for idx, row in enumerate(self.rows):
-            infl = row[OrthBank.INFL]
-            ur = row[OrthBank.UR]
-            key = row[OrthBank.KEY]
-
-            ur_map[ur][key] = infl
-
-        return ur_map
-
-    def __getitem__(self, ur):
-        return self.ur_map[ur]
 
 
 class PhonBank(RowIterable):
@@ -96,29 +80,32 @@ class PhonBank(RowIterable):
         "J": "ɲ",  # y?
         "rr": "r",
         "r": "ɾ",
-
-        # preserve stress
-        "ax1": "ə1",
-        "E1": "ɛ1",
-        "O1": "ɔ1",
     }
 
     def __init__(self, incl_stress=True, incl_syllables=True):
-        def to_ipa(row):
-            row = row.split()
-
+        def preproc(row):
             if not incl_stress:
                 row = map(lambda seg: seg.replace("1", ""), row)
             if not incl_syllables:
                 row = map(lambda seg: seg.replace("-", ""), row)
 
+            if incl_stress and incl_syllables:
+                # Then let's convert the stress notation to sziga's:
+                # just place a ' at the beginning of the syllable in which "1"
+                # occurs.
+                sylls = row.split("-")
+                row = "-".join([
+                    "\' " + syll.replace("1", "") if "1" in syll else syll
+                    for syll in sylls
+                ])
+
             return " ".join([
                 self.ipa_map[segment] if segment in self.ipa_map else segment
-                for segment in row
+                for segment in row.split()
             ])
 
         raw_rows = open(self.PATH).readlines()
-        self.rows = [to_ipa(row) for row in raw_rows]
+        self.rows = [preproc(row) for row in raw_rows]
 
         self._phonemes = self.get_phonemes()
         self.feature_table = panphon.FeatureTable()
@@ -185,21 +172,24 @@ class Corpus(RowIterable):
         self.phon_bank = PhonBank()
         self.orth_bank = OrthBank()
 
-        self.orth_ur_to_phon_infl = self.get_orth_ur_to_phon_infl()
+        self.lemma_to_phon_infl = self.get_lemma_to_phon_infl()
+        self.ur_to_infl = self.get_ur_to_infl()
 
         # Epitran applies some of its own rules unless instructed not to,
         # depriving us of the opportunity, unless we unset this preproc flag.
         # See https://github.com/dmort27/epitran/blob/master/epitran/data/pre/cat-Latn.txt
-        self.epi = epitran.Epitran("cat-Latn", preproc=False)
+        file = "cat-Latn.csv"
+        g2p_loc = os.path.join("..", DATA_DIR, "map", file)
+        self.epi = ConfigurableEpitran("cat-Latn", preproc=False, g2p_loc=g2p_loc)
 
     def orth_to_phon(self, orth):
         return self.epi.transliterate(orth)
 
-    def get_orth_ur_to_phon_infl(self):
-        orth_ur_to_phon_infl = defaultdict(dict)
+    def get_lemma_to_phon_infl(self):
+        lemma_to_phon_infl = defaultdict(dict)
 
         for idx, row in enumerate(self.orth_bank):
-            ur = row[OrthBank.UR]
+            lemma = row[OrthBank.LEMMA]
             key = row[OrthBank.KEY]
 
             # skip features that I don't know what they are
@@ -208,9 +198,46 @@ class Corpus(RowIterable):
             phonetic_infl = self.phon_bank[idx]
             phonetic_infl = re.sub("\s", "", phonetic_infl)
 
-            orth_ur_to_phon_infl[ur][key] = phonetic_infl
+            lemma_to_phon_infl[lemma][key] = phonetic_infl
 
-        return orth_ur_to_phon_infl
+        return lemma_to_phon_infl
+
+    def get_ur_to_infl(self):
+        """Employ some heuristics to derive underlying representations
+        from the data:
+
+        Assume UR is fem sing - final char, plus
+        decontinuation of word final stops:
+        ɣ -> ɡ, ð -> d, β -> b.
+
+        This means we have to skip examples that lack
+        a feminine alternation.
+
+        We also have to re-syllabify and re-stress, a job
+        we'll save for the grammar. Here, just strip the syllable
+        and stress markers.
+        """
+
+        def fem_to_ur(word):
+            decont_map = {
+                "ɣ": "ɡ",
+                "ð": "d",
+                "β": "b"
+            }
+
+            word = word[:-1]
+            new_final_char = word[-1]
+            if new_final_char in decont_map:
+                word = word[:-2] + decont_map[new_final_char]
+
+            word = word.replace("-", "").replace("\'", "")
+
+            return word
+
+        return {
+            fem_to_ur(infl_map[OrthBank.FS]): infl_map
+            for lemma, infl_map in self.lemma_to_phon_infl.items()
+            if OrthBank.FS in infl_map}
 
     def format_UR_lexicon(self):
         root_templ = """
@@ -257,30 +284,21 @@ LEXICON SR
             OrthBank.FS: "{{ur}}{FEM}:{{sr}}\t#;".format(FEM=self.FEM)}
 
         return "\n".join([
-            templates[phon_infl_key].format(
-                ur=self.orth_to_phon(orth_ur),
-                sr=phon_infl
+            templates[infl_key].format(
+                ur=ur,
+                sr=infl_val
             )
-            for orth_ur, phon_infl_map in self.orth_ur_to_phon_infl.items()
-            for phon_infl_key, phon_infl in phon_infl_map.items()
-            if phon_infl_key in templates])
+            for ur, infl_map in self.ur_to_infl.items()
+            for infl_key, infl_val in infl_map.items()
+            if infl_key in templates])
 
     def format_UR(self):
         templ = "{ur} {ADJ_INF};"
         return "\n".join([
             templ.format(
-                ur=self.orth_to_phon(orth_ur),
+                ur=ur,
                 ADJ_INF=self.ADJ_INF)
-            for orth_ur, phon_infl_map in self.orth_ur_to_phon_infl.items()
-        ])
-
-    def ur_orth_to_phon(self):
-        templ = "{orth} {phon}"
-        return "\n".join([
-            templ.format(
-                orth=orth_ur,
-                phon=self.orth_to_phon(orth_ur))
-            for orth_ur, phon_infl_map in self.orth_ur_to_phon_infl.items()
+            for ur, infl_map in self.ur_to_infl.items()
         ])
 
     def format_phonetic_defs(self, defs, prefix=""):
@@ -309,28 +327,31 @@ LEXICON SR
 
 
 class SmallOrthPhonBank(OrthBank):
-    """Expects file in .orth format that contains phonemes."""
+    """Expects a file in .orth format that nevertheless contains phonemes."""
 
     FILE = "small.adj.orth-phon"
     PATH = os.path.join(DATA_DIR, FILE)
+
+    def __init__(self):
+        self.rows = list(csv.DictReader(
+            open(self.PATH), delimiter=" ", fieldnames=[
+                OrthBank.INFL, OrthBank.UR, OrthBank.KEY]
+        ))
 
 
 class SmallCorpus(Corpus):
     def __init__(self):
         self.orth_bank = SmallOrthPhonBank()
-        self.orth_ur_to_phon_infl = self.get_orth_ur_to_phon_infl()
+        self.ur_to_infl = self.get_ur_to_infl()
 
-    def get_orth_ur_to_phon_infl(self):
-        orth_ur_to_phon_infl = defaultdict(dict)
+    def get_ur_to_infl(self):
+        ur_to_infl = defaultdict(dict)
 
         for idx, row in enumerate(self.orth_bank):
             ur = row[OrthBank.UR]
             key = row[OrthBank.KEY]
             infl = row[OrthBank.INFL]
 
-            orth_ur_to_phon_infl[ur][key] = infl
+            ur_to_infl[ur][key] = infl
 
-        return orth_ur_to_phon_infl
-
-    def orth_to_phon(self, orth):
-        return orth
+        return ur_to_infl

@@ -58,6 +58,14 @@ define InterConFrication ɡ -> ɣ,
 # Surely there will be more.
 define Exceptions VocDeletionExceptions;
 
+# SYLLABIFICATION
+
+# STRESS ASSIGNMENT
+
+# VOWEL REDUCTION
+
+# GEMINATION
+
 define Grammar Lexicon
 	.o. NasalPlaceAssim
 	.o. SonCorDeletion

@@ -13,8 +13,6 @@ if __name__ == "__main__":
                         help="Print the UR lexicon.")
     parser.add_argument("-sr-lexicon", action="store_true",
                         help="Print the UR-to-SR lexicon.")
-    parser.add_argument("-ur-orth-to-phon", action="store_true",
-                        help="Print the lexicon.")
     parser.add_argument("--small", action="store_true",
                         help="Operate on the small lexicon.")
     args = parser.parse_args()
@@ -40,6 +38,3 @@ if __name__ == "__main__":
 
     elif args.sr_lexicon:
         print(corpus.format_SR_lexicon())
-
-    elif args.ur_orth_to_phon:
-        print(corpus.ur_orth_to_phon())
