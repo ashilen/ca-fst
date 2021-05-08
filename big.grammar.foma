@@ -3,57 +3,119 @@ define Lexicon;
 
 source features.foma
 
+define alph [a|b|d|d͡ʒ|e|f|h|i|j|k|l|m|n|o|p|r|s|t|t͡ʃ|u|v|w|z|ð|ŋ|ɔ|ə|ɛ|ɡ|ɣ|ɲ|ɾ|ʃ|ʎ|ʒ|β];
+
 # Composite features
-define +dor %-syl & [ %+hi | %+lo | %+back ] ;
+define +dor %-syl & [ %+hi | %+lo | %+back ];
 define +pal %-syl & [ %-ant & %-cor & %+hi & %-lo & %-back ];
-define +velar %-syl & [ %-ant & %-cor & %+hi & %-lo & %+back ] ; # confirm this
+define +vel %-syl & [ %-ant & %-cor & %+hi & %-lo & %+back ]; # confirm this
 
-define +plos [ %-son & %-cont & %-delrel ] ;
-define +fric [ %-son & %+cont ] ;
-define +approx [ %+son & %-nas ] ;
-define -approx [ ~%+approx | r | ɾ] ;
+define +plos [ %-son & %-cont & %-delrel ];
+define +fric [ %-son & %+cont ];
+define +approx [ %+son & %-nas ];
+define -approx [ ~%+approx | ɾ ];
 
-# Word final sonorant consonantal deletion, /n r ɾ/
-define SonCorDeletion [ %-approx & %-syl & %+cor & %+son] -> 0 || _ .#. ;
+# Word final sonorant consonantal deletion, /n r/
+# Only on stressed syllables, not following /r/
+# Apparently not the same as rule in class, since environment for
+# /r/ differs from /n/
+# Still exceptions:
+# 	- not monosyllabic?
+# 	-
+define TapDeletion ɾ -> 0 || _ .#.;
+define NasalDeletion n -> 0 || 1[alph*][\r] _ .#.;
+
+# [ %-approx & %-syl & %+cor & %+son ] -> 0
+define SonCorDeletion TapDeletion .o. NasalDeletion;
+
+# Tap becomes a trill before stops.
+# Placing this after InterConFrication to avoid e.g.
+# 	- ʃəm-1bɛɾɡ+Fem	ʃəm-1bɛr-ɣə
+# but maybe sensitivity to syllable boundary would be more correct?
+define PreStopTrill ɾ -> r || _%+plos;
+
+# Sometimes word final rhotic tap becomes trill instead of being deleted
+#	- whenever stressed except 'ðo_
+# 
+# Is it stress related?
+#
+# 	- pɾu-1li-ʒəɾ+Masc	pɾu-1li-ʒə
+#	- pɾu-1li-fəɾ+Masc	pɾu-1li-fər
+#
+#	- lək-1ti-βuɾ+Masc	lək-1ti-βu
+#	- um-1ni-βuɾ+Masc	um-1ni-βur
+#
+#	- u-1βi-βuɾ+Masc	u-1βi-βu
+#	- u-1βi-pəɾ+Masc	u-1βi-pə
+#	- u-1βi-ʒəɾ+Masc	u-1βi-ʒə
+#	- u-1βi-fəɾ+Masc	u-1βi-fər
+#
+#	- dək-ti-1lɔp-təɾ+Masc	dək-ti-1lɔp-tər
+#	- dək-ti-1li-fəɾ+Masc	dək-ti-1li-fə
+#
+#	- sum-1ni-fəɾ+Masc	sum-1ni-fər
+#	- su-pu-1ɾi-fəɾ+Masc	su-pu-1ɾi-fər
+define Trill ɾ -> r || 1[alph+] _ .#.;
+
+# Monosyllables ending consonants get an -u
+define MonosyllabicUEpen;
 
 # Adjacent homorganic cons deletion
-define HomCorDeletion [ %-syl & %+cor ] -> 0 || [ %-syl & %+cor & %+son ] _ .#. ;
-define HomDorDeletion [ %-syl & %+dor ] -> 0 || [ %-syl & %+dor & %+son ] _ .#. ;
-define HomDeletion HomCorDeletion .o. HomDorDeletion ;
+# -cont on righthand side to exclude [rn]
+define HomCorDeletion [ %-syl & %+cor ] -> 0 || [ %-cont & %-syl & %+cor & %+son ] _ .#.;
+define HomDorDeletion [ %-syl & %+dor ] -> 0 || [ %-cont & %-syl & %+dor & %+son ] _ .#.;
+define HomDeletion HomCorDeletion .o. HomDorDeletion;
 
 # Nasal place assimilation
 # Yes but.. something more complicated going on
 # e.g. forassenyat
 # Also, by specifying -ant we're predicting h and t͡ʃ, but maybe that makes sense.
 
-define AnteriorAssim n -> ɲ || _ [ %-ant ] ;
-define VelarAssim n -> ŋ || _ [ %+velar ] ;
+define AnteriorAssim n -> ɲ || _ [ %-ant ];
+define VelarAssim n -> ŋ || _ [ %+vel ];
 define NasalPlaceAssim VelarAssim .o. AnteriorAssim;
 
 # Vocalic deletion: vowels followed by schwa are deleted, with a few exceptions.
-define VocDeletion [ %+syl ] -> 0 || _ ə ;
+define VocDeletion [ %+syl ] -> 0 || _ ə .#.;
 
 define VocDeletionExceptions [
 	[{nu} 	"+Fem" .x. {nuə}] |
 	[{kru} 	"+Fem" .x. {kruə}]
-] ;
+];
+
+# Stressed word final lenition of [ ɛ | b ] -> uw
+# Has to precede WordFinPlosiveDevoicing
+define WordFinStressedLenition b -> uw || 1[alph*] _ .#.;
+
+# Needs to go before SonCorDeletion to avoid e.g.
+#	- mi-u-1sɛn+Masc	mi-u-1sɛuw
+define WordFinStressedLengthening ɛ -> ɛuw || 1[alph*] _ .#.;
 
 # Word final plosive devoicing
 define WordFinPlosiveDevoicing  ɡ -> k,
  								d -> t,
  								b -> p,
- 								z -> s || _ .#. ;
+ 								z -> s || _ .#.;
 
 # Word final affrication
 # [+fric] -> [-cont, +delrel]
 define WordFinAffrication ʒ -> t͡ʃ,
-						  ð -> d͡ʒ || _ .#. ;
+						  ð -> d͡ʒ || _ .#.;
 
 # Voiced stops become (continuant) fricatives in between sonorant continuants
 # [ %+plos & %+voi ] -> [ %+cont ] || [ %+son & %+cont ] _ [ %+son & %+cont ]
 define InterConFrication ɡ -> ɣ,
 						 d -> ð,
-						 b -> β || [ %+son & %+cont ] _ [ %+son & %+cont ] ;
+						 b -> β || [ %+son & %+cont ] _ [ %+son & %+cont ];
+
+# ɔ -> o when stressed
+define StressedVowelClosing ɔ -> o || 1[alph*] _;
+
+# primitive re-syllabification of word ending with attached schwa
+# or schwa may become syllable of its own when it follows a vowel
+define Syllabify0 [ %-syl ] -> %- ... || [ %+son | %+cont ] _ ə .#.;
+define Syllabify1 ə -> %- ... || [ %+syl & \ə ] _ .#.;
+define Syllabify Syllabify0 .o. Syllabify1;
 
 # Surely there will be more.
 define Exceptions VocDeletionExceptions;
@@ -68,16 +130,18 @@ define Exceptions VocDeletionExceptions;
 
 define Grammar Lexicon
 	.o. NasalPlaceAssim
+	.o. WordFinStressedLengthening
 	.o. SonCorDeletion
+#	.o. Trill
+#	.o. Flap
 	.o. HomDeletion
-	.o. VocDeletion
+	.o. WordFinStressedLenition
  	.o. WordFinPlosiveDevoicing
  	.o. WordFinAffrication
- 	.o. InterConFrication;
+ 	.o. InterConFrication
+ 	.o. PreStopTrill
+# 	.o. StressedVowelClosing
+	.o. Syllabify
+	.o. VocDeletion;
 
 define Grammar [Exceptions .P. Grammar];
-
-read lexc big.sr.lexicon.lexc
-define SRLexicon;
-
-regex [SRLexicon - Grammar];

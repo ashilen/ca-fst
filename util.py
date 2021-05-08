@@ -13,8 +13,14 @@ if __name__ == "__main__":
                         help="Print the UR lexicon.")
     parser.add_argument("-sr-lexicon", action="store_true",
                         help="Print the UR-to-SR lexicon.")
+    parser.add_argument("-alphabet", action="store_true",
+                        help="Print the alphabet.")
     parser.add_argument("--small", action="store_true",
                         help="Operate on the small lexicon.")
+    parser.add_argument("--syll", action="store_true",
+                        help="Preserve syllable structure.")
+    parser.add_argument("--stress", action="store_true",
+                        help="Preserve stress.")
     args = parser.parse_args()
 
     if args.small:
@@ -22,7 +28,7 @@ if __name__ == "__main__":
     else:
         corpus_class = Corpus
 
-    corpus = corpus_class()
+    corpus = corpus_class(args.syll, args.stress)
 
     if args.feature_defs:
         print(corpus.format_feature_defs())
@@ -38,3 +44,6 @@ if __name__ == "__main__":
 
     elif args.sr_lexicon:
         print(corpus.format_SR_lexicon())
+
+    elif args.alphabet:
+        print(corpus.format_alphabet())

@@ -9,6 +9,12 @@ from pprint import pprint
 DATA_DIR = "data"
 
 
+def separate(elements, prefix="", sep="|"):
+    return "".join(
+        ["%s%s%s" % (prefix, element, sep) for element in elements]
+    )[:-1]
+
+
 class RowIterable:
     def __iter__(self):
         return iter(self.rows)
@@ -61,6 +67,8 @@ class PhonBank(RowIterable):
     FILE = "adj.phon"
     PATH = os.path.join(DATA_DIR, FILE)
 
+    # reverse this:
+    # https://salsa.debian.org/tts-team/festival-ca/-/blob/master/src/data/unicode2sampa.sh
     ipa_map = {
         "ax": "ə",
         "L": "ʎ",
@@ -69,6 +77,7 @@ class PhonBank(RowIterable):
         "E": "ɛ",
         "O": "ɔ",
         "D": "ð",
+        "S": "ʃ",
         "tS": "t͡ʃ",
         "ts": "t͡ʃ",  # I assume
         "Z": "ʒ",
@@ -76,32 +85,37 @@ class PhonBank(RowIterable):
         "g": "ɡ",
         "Z": "ʒ",
         "dZ": "d͡ʒ",
-        "N": "ŋ",  # g?
-        "J": "ɲ",  # y?
+        "N": "ŋ",  # in env of g?
+        "J": "ɲ",  # in env of y?
         "rr": "r",
         "r": "ɾ",
+        "y": "j",
     }
+
+    SYLL = "-"
+    STRESS = "1"
 
     def __init__(self, incl_stress=True, incl_syllables=True):
         def preproc(row):
+            row = row.split()
+
             if not incl_stress:
                 row = map(lambda seg: seg.replace("1", ""), row)
             if not incl_syllables:
                 row = map(lambda seg: seg.replace("-", ""), row)
 
             if incl_stress and incl_syllables:
-                # Then let's convert the stress notation to sziga's:
-                # just place a ' at the beginning of the syllable in which "1"
-                # occurs.
-                sylls = row.split("-")
-                row = "-".join([
-                    "\' " + syll.replace("1", "") if "1" in syll else syll
-                    for syll in sylls
-                ])
+                # Then let's move the stress to the beginning of its syllable.
+                last_syl_marker_idx = -1
+                for idx, unit in enumerate(row[:]):
+                    last_syl_marker_idx = idx if unit == self.SYLL else last_syl_marker_idx
+                    if self.STRESS in unit:
+                        row[idx] = unit.replace(self.STRESS, "")
+                        row.insert(last_syl_marker_idx + 1, self.STRESS)
 
             return " ".join([
                 self.ipa_map[segment] if segment in self.ipa_map else segment
-                for segment in row.split()
+                for segment in row
             ])
 
         raw_rows = open(self.PATH).readlines()
@@ -168,8 +182,9 @@ class Corpus(RowIterable):
     PL = "+Pl"
     ADJ_INF = "AdjInf"
 
-    def __init__(self):
-        self.phon_bank = PhonBank()
+    def __init__(self, preserve_syllables, preserve_stress):
+        self.phon_bank = PhonBank(
+            incl_syllables=preserve_syllables, incl_stress=preserve_stress)
         self.orth_bank = OrthBank()
 
         self.lemma_to_phon_infl = self.get_lemma_to_phon_infl()
@@ -200,42 +215,60 @@ class Corpus(RowIterable):
 
             lemma_to_phon_infl[lemma][key] = phonetic_infl
 
+        # filter examples that lack both MS and FS
+        lemma_to_phon_infl = {
+            lemma: infls for lemma, infls in lemma_to_phon_infl.items()
+            if OrthBank.MS in infls and OrthBank.FS in infls}
+
         return lemma_to_phon_infl
 
     def get_ur_to_infl(self):
-        """Employ some heuristics to derive underlying representations
-        from the data:
+        """Derive underlying representations with some heuristics:
 
-        Assume UR is fem sing - final char, plus
-        decontinuation of word final stops:
-        ɣ -> ɡ, ð -> d, β -> b.
+            - Assume UR is fem sing - final phon, plus
+              decontinuation of word final stops:
 
-        This means we have to skip examples that lack
-        a feminine alternation.
+                ɣ -> ɡ, ð -> d, β -> b.
 
-        We also have to re-syllabify and re-stress, a job
-        we'll save for the grammar. Here, just strip the syllable
-        and stress markers.
+            - Or if the lemma has a final front vowel, assume that vowel.
+
+            - Or if the lemma has a final back vowel, assume it's the masculine
+              inflection that's underlying.
+
+        We also have to re-syllabify, which amounts to removing the final
+        syllable marker:
+            1) dangling consonants become the coda of the previous
+               syllable or
+            2) the schwa was the entire syllable
         """
 
-        def fem_to_ur(word):
+        def to_ur(infl_map, lemma):
+            fem_sing_infl = infl_map[OrthBank.FS]
+
             decont_map = {
                 "ɣ": "ɡ",
                 "ð": "d",
                 "β": "b"
             }
 
-            word = word[:-1]
-            new_final_char = word[-1]
+            # if lemma-final /e/, /ɛ/, /a/
+            if lemma[-1] in ["e", "a"]:
+                return fem_sing_infl
+            # elif lemma[-1] in ["o", "u"]:
+            #     return infl_map[OrthBank.MS]
+
+            ur = fem_sing_infl[:-1]
+            new_final_char = ur[-1]
             if new_final_char in decont_map:
-                word = word[:-2] + decont_map[new_final_char]
+                ur = ur[:-1] + decont_map[new_final_char]
 
-            word = word.replace("-", "").replace("\'", "")
+            # fixup final syllable
+            ur = "".join(ur.rsplit("-", maxsplit=1))
 
-            return word
+            return ur
 
         return {
-            fem_to_ur(infl_map[OrthBank.FS]): infl_map
+            to_ur(infl_map, lemma): infl_map
             for lemma, infl_map in self.lemma_to_phon_infl.items()
             if OrthBank.FS in infl_map}
 
@@ -298,10 +331,10 @@ LEXICON SR
             templ.format(
                 ur=ur,
                 ADJ_INF=self.ADJ_INF)
-            for ur, infl_map in self.ur_to_infl.items()
+            for ur in self.ur_to_infl.keys()
         ])
 
-    def format_phonetic_defs(self, defs, prefix=""):
+    def format_phonetic_defs(self, defs, prefix="", sep="|"):
         """Format feature to phoneme set tuples in the form:
 
         define +syll [ i | e | ɛ | a | ɔ | o | u ];
@@ -309,13 +342,8 @@ LEXICON SR
         """
         templ = "define {name} [{elements}];\n"
 
-        def pipe_separate(elements):
-            return "".join(
-                [" %s%s %s " % (prefix, element, "|") for element in elements]
-            )[:-2]
-
         return "".join([
-            templ.format(name=name, elements=pipe_separate(elements))
+            templ.format(name=name, elements=separate(elements, prefix=prefix, sep=sep))
             for name, elements in defs.items()
         ])
 
@@ -323,7 +351,13 @@ LEXICON SR
         return self.format_phonetic_defs(self.phon_bank.feature_phoneme_sets)
 
     def format_phoneme_defs(self):
-        return self.format_phonetic_defs(self.phon_bank.phoneme_feature_sets, prefix="%")
+        return self.format_phonetic_defs(self.phon_bank.phoneme_feature_sets, prefix="%", sep="&")
+
+    def format_alphabet(self):
+        templ = "define {name} [{elements}];\n"
+
+        alphabet = sorted(self.phon_bank.phoneme_feature_sets.keys())
+        return templ.format(name="alph", elements=separate(alphabet))
 
 
 class SmallOrthPhonBank(OrthBank):

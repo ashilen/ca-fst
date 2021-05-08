@@ -1,0 +1,17 @@
+source big.grammar.foma
+
+read lexc big.sr.lexicon.lexc
+define SRLexicon;
+
+define CorrectMadePredictions [SRLexicon & Grammar];
+define CorrectUnmadePredictions [SRLexicon - Grammar];
+define IncorrectPredictions [CorrectUnmadePredictions.u .o. Grammar];
+
+regex CorrectUnmadePredictions;
+pairs > correct
+
+regex IncorrectPredictions;
+pairs > incorrect
+
+regex CorrectMadePredictions;
+pairs > correctly-derived

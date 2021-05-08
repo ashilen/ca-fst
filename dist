@@ -1,0 +1,23 @@
+#!/usr/bin/env python3
+import sys
+
+char = sys.argv[1]
+print(char)
+
+with open("correct") as correct_f, open("incorrect") as incorrect_f:
+
+    incorrect = {ur: sr for ur, sr in [line.split() for line in incorrect_f.readlines()]}
+    correct = {ur: sr for ur, sr in [line.split() for line in correct_f.readlines()]}
+
+    for ur, cor in correct.items():
+        inc = incorrect[ur]
+
+        cor_set = set(list(cor.strip()))
+        inc_set = set(list(inc.strip()))
+        difference = inc_set.difference(cor_set)
+
+        if difference == {char}:
+            print("%s" % ur)
+            print("\t%s" % cor)
+            print("\t%s" % inc)
+            print("\n")

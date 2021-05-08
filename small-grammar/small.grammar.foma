@@ -1,0 +1,84 @@
+read lexc small.ur.lexicon.lexc
+define Lexicon;
+
+source features.foma
+
+# Composite features
+define +dor %-syl & [ %+hi | %+lo | %+back ] ;
+define +pal %-syl & [ %-ant & %-cor & %+hi & %-lo & %-back ];
+define +velar %-syl & [ %-ant & %-cor & %+hi & %-lo & %+back ] ; # confirm this
+
+define +plos [ %-son & %-cont & %-delrel ] ;
+define +fric [ %-son & %+cont ] ;
+define +approx [ %+son & %-nas ] ;
+define -approx [ ~%+approx | r ] ;
+
+# Word final sonorant consonantal deletion, /n r/
+define SonCorDeletion [ %-approx & %-syl & %+cor & %+son] -> 0 || _ .#. ;
+
+# Adjacent homorganic cons deletion
+define HomCorDeletion [ %-syl & %+cor ] -> 0 || [ %-syl & %+cor & %+son ] _ .#. ;
+define HomDorDeletion [ %-syl & %+dor ] -> 0 || [ %-syl & %+dor & %+son ] _ .#. ;
+define HomDeletion HomCorDeletion .o. HomDorDeletion ;
+
+# Nasal place assimilation
+# Should confirm in big corpus that palatal (anterior) nasal is in fact allophone of N
+# Yes but.. something more complicated going on
+# e.g. forassenyat
+# Also, by specifying -ant we're predicting h and t͡ʃ, but maybe that makes sense.
+
+define AnteriorAssim n -> ɲ || _ [ %-ant ] ;
+define VelarAssim n -> ŋ || _ [ %+velar ] ;
+define NasalPlaceAssim VelarAssim .o. AnteriorAssim;
+
+# Vocalic deletion: vowels followed by schwa are deleted.
+# e.g. əgzaktə +Fem
+# but also dropuə, flɔnd͡ʒuə are bad vs kruə, nuə are good?
+# exceptions or either some long-distance dep or irregular or syllabic or stress related?
+# perhaps more evidence in big corpus?
+# Preliminarily concluding they're exceptions, since they're the only [-ue] examples in the big
+# corpus, besides akrue
+define VocDeletion [ %+syl ] -> 0 || _ ə ;
+
+define VocDeletionExceptions [
+	[{nu} 	"+Fem" .x. {nuə}] |
+	[{kru} 	"+Fem" .x. {kruə}]
+] ;
+
+# How to do feature arithmetic?
+
+# Word final plosive devoicing
+define WordFinPlosiveDevoicing  ɡ -> k,
+ 								d -> t,
+ 								b -> p,
+ 								z -> s || _ .#. ;
+
+# Word final affrication
+# [+fric] -> [-cont, +delrel]
+define WordFinAffrication ʒ -> t͡ʃ,
+						  ð -> d͡ʒ || _ .#. ;
+
+# Voiced stops become (continuant) fricatives in between sonorant continuants
+# [ %+plos & %+voi ] -> [ %+cont ] || [ %+son & %+cont ] _ [ %+son & %+cont ]
+define InterConFrication ɡ -> ɣ,
+						 d -> ð,
+						 b -> β || [ %+son & %+cont ] _ [ %+son & %+cont ] ;
+
+# Surely there will be more.
+define Exceptions VocDeletionExceptions;
+
+define Grammar Lexicon
+	.o. NasalPlaceAssim
+	.o. SonCorDeletion
+	.o. HomDeletion
+	.o. VocDeletion
+ 	.o. WordFinPlosiveDevoicing
+ 	.o. WordFinAffrication
+ 	.o. InterConFrication;
+
+define Grammar [Exceptions .P. Grammar];
+
+read lexc small.sr.lexicon.lexc
+define SRLexicon;
+
+regex [SRLexicon - Grammar];

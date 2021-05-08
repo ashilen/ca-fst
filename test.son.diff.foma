@@ -1,0 +1,17 @@
+source big.grammar.foma
+
+define SonCorDeletion1 [ %-approx & %-syl & %+cor & %+son ] -> 0 || _ .#. ;
+
+define Grammar1 Lexicon
+	.o. NasalPlaceAssim
+	.o. SonCorDeletion1
+#	.o. RhoticDeflapping
+	.o. HomDeletion
+	.o. VocDeletion
+ 	.o. WordFinPlosiveDevoicing
+ 	.o. WordFinAffrication
+ 	.o. InterConFrication
+	.o. Syllabify;
+
+regex [Grammar1.l - Grammar.l];
+low
