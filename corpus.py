@@ -254,8 +254,8 @@ class Corpus(RowIterable):
             # if lemma-final /e/, /ɛ/, /a/
             if lemma[-1] in ["e", "a"]:
                 return fem_sing_infl
-            # elif lemma[-1] in ["o", "u"]:
-            #     return infl_map[OrthBank.MS]
+            elif lemma[-1] in ["o", "u"]:
+                return infl_map[OrthBank.MS]
 
             ur = fem_sing_infl[:-1]
             new_final_char = ur[-1]

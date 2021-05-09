@@ -35,67 +35,44 @@ define SonCorDeletion TapDeletion .o. NasalDeletion;
 define PreStopTrill ɾ -> r || _%+plos;
 
 # Sometimes word final rhotic tap becomes trill instead of being deleted
-#	- whenever stressed except 'ðo_
-# 
-# Is it stress related?
-#
-# 	- pɾu-1li-ʒəɾ+Masc	pɾu-1li-ʒə
-#	- pɾu-1li-fəɾ+Masc	pɾu-1li-fər
-#
-#	- lək-1ti-βuɾ+Masc	lək-1ti-βu
-#	- um-1ni-βuɾ+Masc	um-1ni-βur
-#
-#	- u-1βi-βuɾ+Masc	u-1βi-βu
-#	- u-1βi-pəɾ+Masc	u-1βi-pə
-#	- u-1βi-ʒəɾ+Masc	u-1βi-ʒə
-#	- u-1βi-fəɾ+Masc	u-1βi-fər
-#
-#	- dək-ti-1lɔp-təɾ+Masc	dək-ti-1lɔp-tər
-#	- dək-ti-1li-fəɾ+Masc	dək-ti-1li-fə
-#
-#	- sum-1ni-fəɾ+Masc	sum-1ni-fər
-#	- su-pu-1ɾi-fəɾ+Masc	su-pu-1ɾi-fər
-define Trill ɾ -> r || 1[alph+] _ .#.;
-
-# Monosyllables ending consonants get an -u
-define MonosyllabicUEpen;
+define Trill ɾ -> r || 1[alpha*][%+round] _ .#.;
 
 # Adjacent homorganic cons deletion
-# -cont on righthand side to exclude [rn]
-define HomCorDeletion [ %-syl & %+cor ] -> 0 || [ %-cont & %-syl & %+cor & %+son ] _ .#.;
-define HomDorDeletion [ %-syl & %+dor ] -> 0 || [ %-cont & %-syl & %+dor & %+son ] _ .#.;
+# -cont on righthand side makes it /n/: [n], [ɲ], [ŋ]
+define HomCorDeletion [ %-syl & %+cor ] -> 0 || [ %-cont & %+cons & %+cor & %+son ] _ .#.;
+define HomDorDeletion [ %-syl & %+dor ] -> 0 || [ %-cont & %+cons & %+dor & %+son ] _ .#.;
 define HomDeletion HomCorDeletion .o. HomDorDeletion;
 
 # Nasal place assimilation
-# Yes but.. something more complicated going on
-# e.g. forassenyat
 # Also, by specifying -ant we're predicting h and t͡ʃ, but maybe that makes sense.
-
 define AnteriorAssim n -> ɲ || _ [ %-ant ];
 define VelarAssim n -> ŋ || _ [ %+vel ];
 define NasalPlaceAssim VelarAssim .o. AnteriorAssim;
 
-# Vocalic deletion: vowels followed by schwa are deleted, with a few exceptions.
-define VocDeletion [ %+syl ] -> 0 || _ ə .#.;
+# Vocalic deletion: vowels followed by word-final vowels are deleted, with a few exceptions.
+# U deletion has to happen before syllabification
+define UVocDeletion u -> 0 || [ %+cont & %-syl] _ [ %+syl ] .#.;
+define VocDeletion [ %+syl ] -> 0 || _ [ %+syl ] .#.;
 
+# Is this necessary with constraint on U deletion?
 define VocDeletionExceptions [
 	[{nu} 	"+Fem" .x. {nuə}] |
 	[{kru} 	"+Fem" .x. {kruə}]
 ];
 
 # Stressed word final lenition of [ ɛ | b ] -> uw
-# Has to precede WordFinPlosiveDevoicing
+# Has to precede WordFinObstruentDevoicing
 define WordFinStressedLenition b -> uw || 1[alph*] _ .#.;
 
 # Needs to go before SonCorDeletion to avoid e.g.
 #	- mi-u-1sɛn+Masc	mi-u-1sɛuw
 define WordFinStressedLengthening ɛ -> ɛuw || 1[alph*] _ .#.;
 
-# Word final plosive devoicing
-define WordFinPlosiveDevoicing  ɡ -> k,
- 								d -> t,
- 								b -> p,
- 								z -> s || _ .#.;
+# Word final obstruent devoicing
+define WordFinObstruentDevoicing  ɡ -> k,
+ 								  d -> t,
+ 								  b -> p,
+ 								  z -> s || _ .#.;
 
 # Word final affrication
 # [+fric] -> [-cont, +delrel]
@@ -109,38 +86,41 @@ define InterConFrication ɡ -> ɣ,
 						 b -> β || [ %+son & %+cont ] _ [ %+son & %+cont ];
 
 # ɔ -> o when stressed
-define StressedVowelClosing ɔ -> o || 1[alph*] _;
+define StressedVowelHeightening ɛ -> e, ɔ -> o || 1[alph*] _;
 
-# primitive re-syllabification of word ending with attached schwa
+define StressedVowelLowering e -> ɛ, o -> ɔ || 1[alph*] _;
+
+# primitive re-syllabification of word ending with attached schwa,
 # or schwa may become syllable of its own when it follows a vowel
 define Syllabify0 [ %-syl ] -> %- ... || [ %+son | %+cont ] _ ə .#.;
 define Syllabify1 ə -> %- ... || [ %+syl & \ə ] _ .#.;
 define Syllabify Syllabify0 .o. Syllabify1;
 
+define glide [ %+son & %+cont & %-cons & %-syl];
+define GlideFinalVocalization j -> i || _ .#.;
+
+define VelFinalWEpen 0 -> w || [%+vel] _ .#.;
+
 # Surely there will be more.
 define Exceptions VocDeletionExceptions;
 
-# SYLLABIFICATION
-
-# STRESS ASSIGNMENT
-
-# VOWEL REDUCTION
-
-# GEMINATION
-
 define Grammar Lexicon
-	.o. NasalPlaceAssim
+#	.o. NasalPlaceAssim
 	.o. WordFinStressedLengthening
-	.o. SonCorDeletion
 #	.o. Trill
+	.o. SonCorDeletion
 #	.o. Flap
 	.o. HomDeletion
 	.o. WordFinStressedLenition
- 	.o. WordFinPlosiveDevoicing
+ 	.o. WordFinObstruentDevoicing
  	.o. WordFinAffrication
  	.o. InterConFrication
  	.o. PreStopTrill
-# 	.o. StressedVowelClosing
+# 	.o. StressedVowelHeightening
+#	.o. StressedVowelLowering
+#	.o. GlideFinalVocalization
+#	.o. VelFinalWEpen
+	.o. UVocDeletion
 	.o. Syllabify
 	.o. VocDeletion;
 

@@ -1,0 +1,54 @@
+#!/usr/bin/env python3
+import sys
+from collections import defaultdict
+from pprint import pprint
+
+TRILL_DIFF = ("r", "∅",)
+
+
+def stressed_final_syl(word):
+    return "1" in word.split("-")[-1]
+
+
+with open("correct") as correct_f, open("incorrect") as incorrect_f:
+
+    incorrect = {ur: sr for ur, sr in [line.split() for line in incorrect_f.readlines()]}
+    correct = {ur: sr for ur, sr in [line.split() for line in correct_f.readlines()]}
+
+    differences = defaultdict(int)
+    keyed_differences = defaultdict(list)
+
+    for ur, cor in correct.items():
+        inc = incorrect[ur]
+
+        cor_set = set(list(cor.strip()))
+        inc_set = set(list(inc.strip()))
+
+        difference1 = "".join(sorted([char for char in inc_set.difference(cor_set)])) or "∅"
+        difference2 = "".join(sorted([char for char in cor_set.difference(inc_set)])) or "∅"
+
+        if difference1 != "∅" or difference2 != "∅":
+            tup = (difference2, difference1,)
+
+            differences[tup] += 1
+
+            keyed_differences[tup].append({
+                "ur": ur,
+                "correct": cor,
+                "incorrect": inc
+            })
+
+    sorted_differences = sorted(differences.items(), key=lambda item: item[1], reverse=True)
+
+    # pprint(sorted_differences)
+    # print(sum([vol for (key, vol) in sorted_differences]))
+
+    for (diff, vol) in sorted_differences:
+        difference2, difference1 = diff
+
+        print(difference2 + "\t" + difference1 + "\t" + str(vol))
+
+        sorted_examples = sorted(keyed_differences[diff], key=lambda ex: (ex["ur"].count("-"), stressed_final_syl(ex["ur"]),), reverse=True)
+
+        for example in sorted_examples:
+            print("\t\t" + example["ur"] + "\t" + example["correct"] + "\t" + example["incorrect"])

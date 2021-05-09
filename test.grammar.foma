@@ -5,7 +5,7 @@ define SRLexicon;
 
 define CorrectMadePredictions [SRLexicon & Grammar];
 define CorrectUnmadePredictions [SRLexicon - Grammar];
-define IncorrectPredictions [CorrectUnmadePredictions.u .o. Grammar];
+define IncorrectPredictions [Grammar - SRLexicon];
 
 regex CorrectUnmadePredictions;
 pairs > correct

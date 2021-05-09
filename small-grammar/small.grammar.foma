@@ -81,4 +81,6 @@ define Grammar [Exceptions .P. Grammar];
 read lexc small.sr.lexicon.lexc
 define SRLexicon;
 
-regex [SRLexicon - Grammar];
+regex [SRLexicon & Grammar];
+
+pairs
