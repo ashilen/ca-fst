@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
-import sys
 from collections import defaultdict
-from pprint import pprint
-
-TRILL_DIFF = ("r", "∅",)
 
 
 def stressed_final_syl(word):
@@ -39,9 +35,6 @@ with open("correct") as correct_f, open("incorrect") as incorrect_f:
             })
 
     sorted_differences = sorted(differences.items(), key=lambda item: item[1], reverse=True)
-
-    # pprint(sorted_differences)
-    # print(sum([vol for (key, vol) in sorted_differences]))
 
     for (diff, vol) in sorted_differences:
         difference2, difference1 = diff

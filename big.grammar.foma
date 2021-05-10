@@ -8,12 +8,16 @@ define alph [a|b|d|d͡ʒ|e|f|h|i|j|k|l|m|n|o|p|r|s|t|t͡ʃ|u|v|w|z|ð|ŋ|ɔ|ə|�
 # Composite features
 define +dor %-syl & [ %+hi | %+lo | %+back ];
 define +pal %-syl & [ %-ant & %-cor & %+hi & %-lo & %-back ];
-define +vel %-syl & [ %-ant & %-cor & %+hi & %-lo & %+back ]; # confirm this
+define +vel %-syl & [ %-ant & %-cor & %+hi & %-lo & %+back ];
 
 define +plos [ %-son & %-cont & %-delrel ];
 define +fric [ %-son & %+cont ];
 define +approx [ %+son & %-nas ];
 define -approx [ ~%+approx | ɾ ];
+
+define +strid [ʃ | s | z | ʒ];
+
+define +rho [%-syl & %+son & %+cons & %+ant & %+cont & %-lat];
 
 # Word final sonorant consonantal deletion, /n r/
 # Only on stressed syllables, not following /r/
@@ -23,7 +27,7 @@ define -approx [ ~%+approx | ɾ ];
 # 	- not monosyllabic?
 # 	-
 define TapDeletion ɾ -> 0 || _ .#.;
-define NasalDeletion n -> 0 || 1[alph*][\r] _ .#.;
+define NasalDeletion n -> 0 || 1[alph*][\%+rho] _ .#.;
 
 # [ %-approx & %-syl & %+cor & %+son ] -> 0
 define SonCorDeletion TapDeletion .o. NasalDeletion;
@@ -39,8 +43,9 @@ define Trill ɾ -> r || 1[alpha*][%+round] _ .#.;
 
 # Adjacent homorganic cons deletion
 # -cont on righthand side makes it /n/: [n], [ɲ], [ŋ]
-define HomCorDeletion [ %-syl & %+cor ] -> 0 || [ %-cont & %+cons & %+cor & %+son ] _ .#.;
-define HomDorDeletion [ %-syl & %+dor ] -> 0 || [ %-cont & %+cons & %+dor & %+son ] _ .#.;
+define HomCorDeletion [ %-syl & %+cor ] -> 0 || [\%+rho & %+cons & %+cor & %+son ] _ .#.;
+define HomDorDeletion [ %-syl & %+dor ] -> 0 || [ %+cons & %+dor & %+son ] _ .#.;
+
 define HomDeletion HomCorDeletion .o. HomDorDeletion;
 
 # Nasal place assimilation
@@ -50,9 +55,7 @@ define VelarAssim n -> ŋ || _ [ %+vel ];
 define NasalPlaceAssim VelarAssim .o. AnteriorAssim;
 
 # Vocalic deletion: vowels followed by word-final vowels are deleted, with a few exceptions.
-# U deletion has to happen before syllabification
-define UVocDeletion u -> 0 || [ %+cont & %-syl] _ [ %+syl ] .#.;
-define VocDeletion [ %+syl ] -> 0 || _ [ %+syl ] .#.;
+define VocDeletion [ %+syl & %+back] -> 0 || _ [ %+syl ] .#.;
 
 # Is this necessary with constraint on U deletion?
 define VocDeletionExceptions [
@@ -63,6 +66,9 @@ define VocDeletionExceptions [
 # Stressed word final lenition of [ ɛ | b ] -> uw
 # Has to precede WordFinObstruentDevoicing
 define WordFinStressedLenition b -> uw || 1[alph*] _ .#.;
+
+# u-epenthesis
+# nə-1ðiw+Masc:nə-1ðiuw
 
 # Needs to go before SonCorDeletion to avoid e.g.
 #	- mi-u-1sɛn+Masc	mi-u-1sɛuw
@@ -88,18 +94,19 @@ define InterConFrication ɡ -> ɣ,
 # ɔ -> o when stressed
 define StressedVowelHeightening ɛ -> e, ɔ -> o || 1[alph*] _;
 
-define StressedVowelLowering e -> ɛ, o -> ɔ || 1[alph*] _;
+define StressedVowelLowering e -> ɛ, o -> ɔ || 1[alph*] _ "ks", 1[alph*];
 
-# primitive re-syllabification of word ending with attached schwa,
+# primitive re-syllabification of word ending with attached schwa, when
+# preceding phone doesn't follow a stop
 # or schwa may become syllable of its own when it follows a vowel
-define Syllabify0 [ %-syl ] -> %- ... || [ %+son | %+cont ] _ ə .#.;
-define Syllabify1 ə -> %- ... || [ %+syl & \ə ] _ .#.;
+define Syllabify0 [ %-syl ] -> %- ... || [\%-][ %+son | %+cont ] _ [%+syl] .#.;
+define Syllabify1 [ %+syl ] -> %- ... || [%+syl & %-back] _ .#.;
 define Syllabify Syllabify0 .o. Syllabify1;
 
 define glide [ %+son & %+cont & %-cons & %-syl];
-define GlideFinalVocalization j -> i || _ .#.;
+define GlideFinalVocalization glide -> i || ɾ _ .#.;
 
-define VelFinalWEpen 0 -> w || [%+vel] _ .#.;
+define VelFinalWEpen [%+vel] -> ... w || _ .#.;
 
 # Surely there will be more.
 define Exceptions VocDeletionExceptions;
@@ -118,10 +125,10 @@ define Grammar Lexicon
  	.o. PreStopTrill
 # 	.o. StressedVowelHeightening
 #	.o. StressedVowelLowering
-#	.o. GlideFinalVocalization
+	.o. GlideFinalVocalization
 #	.o. VelFinalWEpen
-	.o. UVocDeletion
+	.o. VocDeletion
 	.o. Syllabify
-	.o. VocDeletion;
+	;
 
 define Grammar [Exceptions .P. Grammar];

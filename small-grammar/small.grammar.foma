@@ -1,7 +1,7 @@
-read lexc small.ur.lexicon.lexc
+read lexc big.ur.lexicon.lexc
 define Lexicon;
 
-source features.foma
+source ../features.foma
 
 # Composite features
 define +dor %-syl & [ %+hi | %+lo | %+back ] ;
@@ -67,7 +67,7 @@ define InterConFrication ɡ -> ɣ,
 # Surely there will be more.
 define Exceptions VocDeletionExceptions;
 
-define Grammar Lexicon
+define Grammar0 Lexicon
 	.o. NasalPlaceAssim
 	.o. SonCorDeletion
 	.o. HomDeletion
@@ -76,11 +76,14 @@ define Grammar Lexicon
  	.o. WordFinAffrication
  	.o. InterConFrication;
 
-define Grammar [Exceptions .P. Grammar];
+define Grammar [Exceptions .P. Grammar0];
 
-read lexc small.sr.lexicon.lexc
+read lexc big.sr.lexicon.lexc
 define SRLexicon;
 
+regex [SRLexicon - Grammar];
+pairs > correct
+regex [Grammar - SRLexicon];
+pairs > incorrect
 regex [SRLexicon & Grammar];
-
-pairs
+pairs > correctly-predicted

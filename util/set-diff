@@ -1,0 +1,22 @@
+#!/usr/bin/env python3
+import sys
+
+f1 = sys.argv[1]
+f2 = sys.argv[2]
+
+with open(f2) as f2_f, open(f1) as f1_f:
+
+    f1 = {ur: sr for ur, sr in [line.split() for line in f1_f.readlines()]}
+    f2 = {ur: sr for ur, sr in [line.split() for line in f2_f.readlines()]}
+
+    f1_urs = f1.keys()
+    f2_urs = f2.keys()
+
+    f1_urs_set = set(f1_urs)
+    f2_urs_set = set(f2_urs)
+
+    for ur in f1_urs_set.difference(f2_urs_set):
+        print(ur, f1[ur])
+    print("\n")
+    for ur in f2_urs_set.difference(f1_urs_set):
+        print(ur, f2[ur])
