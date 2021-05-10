@@ -9,14 +9,11 @@ define alph [a|b|d|d͡ʒ|e|f|h|i|j|k|l|m|n|o|p|r|s|t|t͡ʃ|u|v|w|z|ð|ŋ|ɔ|ə|�
 define +dor %-syl & [ %+hi | %+lo | %+back ];
 define +pal %-syl & [ %-ant & %-cor & %+hi & %-lo & %-back ];
 define +vel %-syl & [ %-ant & %-cor & %+hi & %-lo & %+back ];
-
 define +plos [ %-son & %-cont & %-delrel ];
 define +fric [ %-son & %+cont ];
 define +approx [ %+son & %-nas ];
 define -approx [ ~%+approx | ɾ ];
-
 define +strid [ʃ | s | z | ʒ];
-
 define +rho [%-syl & %+son & %+cons & %+ant & %+cont & %-lat];
 
 # Word final sonorant consonantal deletion, /n r/
@@ -67,9 +64,6 @@ define VocDeletionExceptions [
 # Has to precede WordFinObstruentDevoicing
 define WordFinStressedLenition b -> uw || 1[alph*] _ .#.;
 
-# u-epenthesis
-# nə-1ðiw+Masc:nə-1ðiuw
-
 # Needs to go before SonCorDeletion to avoid e.g.
 #	- mi-u-1sɛn+Masc	mi-u-1sɛuw
 define WordFinStressedLengthening ɛ -> ɛuw || 1[alph*] _ .#.;
@@ -98,7 +92,6 @@ define StressedVowelLowering e -> ɛ, o -> ɔ || 1[alph*] _ "ks", 1[alph*];
 
 # primitive re-syllabification of word ending with attached schwa, when
 # preceding phone doesn't follow a stop
-# or schwa may become syllable of its own when it follows a vowel
 define Syllabify0 [ %-syl ] -> %- ... || [\%-][ %+son | %+cont ] _ [%+syl] .#.;
 define Syllabify1 [ %+syl ] -> %- ... || [%+syl & %-back] _ .#.;
 define Syllabify Syllabify0 .o. Syllabify1;
@@ -112,21 +105,21 @@ define VelFinalWEpen [%+vel] -> ... w || _ .#.;
 define Exceptions VocDeletionExceptions;
 
 define Grammar Lexicon
-#	.o. NasalPlaceAssim
-	.o. WordFinStressedLengthening
+#	.o. NasalPlaceAssim				# never gets a chance, because URs are not really URs
 #	.o. Trill
-	.o. SonCorDeletion
 #	.o. Flap
+# 	.o. StressedVowelHeightening
+#	.o. StressedVowelLowering
+#	.o. VelFinalWEpen
+	.o. WordFinStressedLengthening
+	.o. SonCorDeletion
 	.o. HomDeletion
 	.o. WordFinStressedLenition
  	.o. WordFinObstruentDevoicing
  	.o. WordFinAffrication
  	.o. InterConFrication
  	.o. PreStopTrill
-# 	.o. StressedVowelHeightening
-#	.o. StressedVowelLowering
 	.o. GlideFinalVocalization
-#	.o. VelFinalWEpen
 	.o. VocDeletion
 	.o. Syllabify
 	;
