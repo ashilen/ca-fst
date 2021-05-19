@@ -18,11 +18,8 @@ define +rho [%-syl & %+son & %+cons & %+ant & %+cont & %-lat];
 
 # Word final sonorant consonantal deletion, /n r/
 # Only on stressed syllables, not following /r/
-# Apparently not the same as rule in class, since environment for
-# /r/ differs from /n/
 # Still exceptions:
-# 	- not monosyllabic?
-# 	-
+#   - not monosyllabic?
 define TapDeletion ɾ -> 0 || _ .#.;
 define NasalDeletion n -> 0 || 1[alph*][\%+rho] _ .#.;
 
@@ -31,7 +28,7 @@ define SonCorDeletion TapDeletion .o. NasalDeletion;
 
 # Tap becomes a trill before stops.
 # Placing this after InterConFrication to avoid e.g.
-# 	- ʃəm-1bɛɾɡ+Fem	ʃəm-1bɛr-ɣə
+#   - ʃəm-1bɛɾɡ+Fem ʃəm-1bɛr-ɣə
 # but maybe sensitivity to syllable boundary would be more correct?
 define PreStopTrill ɾ -> r || _%+plos;
 
@@ -39,7 +36,6 @@ define PreStopTrill ɾ -> r || _%+plos;
 define Trill ɾ -> r || 1[alpha*][%+round] _ .#.;
 
 # Adjacent homorganic cons deletion
-# -cont on righthand side makes it /n/: [n], [ɲ], [ŋ]
 define HomCorDeletion [ %-syl & %+cor ] -> 0 || [\%+rho & %+cons & %+cor & %+son ] _ .#.;
 define HomDorDeletion [ %-syl & %+dor ] -> 0 || [ %+cons & %+dor & %+son ] _ .#.;
 
@@ -54,10 +50,9 @@ define NasalPlaceAssim VelarAssim .o. AnteriorAssim;
 # Vocalic deletion: vowels followed by word-final vowels are deleted, with a few exceptions.
 define VocDeletion [ %+syl & %+back] -> 0 || _ [ %+syl ] .#.;
 
-# Is this necessary with constraint on U deletion?
 define VocDeletionExceptions [
-	[{nu} 	"+Fem" .x. {nuə}] |
-	[{kru} 	"+Fem" .x. {kruə}]
+    [{nu}   "+Fem" .x. {nuə}] |
+    [{kru}  "+Fem" .x. {kruə}]
 ];
 
 # Stressed word final lenition of [ ɛ | b ] -> uw
@@ -65,25 +60,25 @@ define VocDeletionExceptions [
 define WordFinStressedLenition b -> uw || 1[alph*] _ .#.;
 
 # Needs to go before SonCorDeletion to avoid e.g.
-#	- mi-u-1sɛn+Masc	mi-u-1sɛuw
+#   - mi-u-1sɛn+Masc    mi-u-1sɛuw
 define WordFinStressedLengthening ɛ -> ɛuw || 1[alph*] _ .#.;
 
 # Word final obstruent devoicing
 define WordFinObstruentDevoicing  ɡ -> k,
- 								  d -> t,
- 								  b -> p,
- 								  z -> s || _ .#.;
+                                  d -> t,
+                                  b -> p,
+                                  z -> s || _ .#.;
 
 # Word final affrication
 # [+fric] -> [-cont, +delrel]
 define WordFinAffrication ʒ -> t͡ʃ,
-						  ð -> d͡ʒ || _ .#.;
+                          ð -> d͡ʒ || _ .#.;
 
 # Voiced stops become (continuant) fricatives in between sonorant continuants
 # [ %+plos & %+voi ] -> [ %+cont ] || [ %+son & %+cont ] _ [ %+son & %+cont ]
 define InterConFrication ɡ -> ɣ,
-						 d -> ð,
-						 b -> β || [ %+son & %+cont ] _ [ %+son & %+cont ];
+                         d -> ð,
+                         b -> β || [ %+son & %+cont ] _ [ %+son & %+cont ];
 
 # ɔ -> o when stressed
 define StressedVowelHeightening ɛ -> e, ɔ -> o || 1[alph*] _;
@@ -105,23 +100,23 @@ define VelFinalWEpen [%+vel] -> ... w || _ .#.;
 define Exceptions VocDeletionExceptions;
 
 define Grammar Lexicon
-#	.o. NasalPlaceAssim				# never gets a chance, because URs are not really URs
-#	.o. Trill
-#	.o. Flap
-# 	.o. StressedVowelHeightening
-#	.o. StressedVowelLowering
-#	.o. VelFinalWEpen
-	.o. WordFinStressedLengthening
-	.o. SonCorDeletion
-	.o. HomDeletion
-	.o. WordFinStressedLenition
- 	.o. WordFinObstruentDevoicing
- 	.o. WordFinAffrication
- 	.o. InterConFrication
- 	.o. PreStopTrill
-	.o. GlideFinalVocalization
-	.o. VocDeletion
-	.o. Syllabify
-	;
+#   .o. NasalPlaceAssim             # never gets a chance, because URs are not really URs
+#   .o. Trill
+#   .o. Flap
+#   .o. StressedVowelHeightening
+#   .o. StressedVowelLowering
+#   .o. VelFinalWEpen
+    .o. WordFinStressedLengthening
+    .o. SonCorDeletion
+    .o. HomDeletion
+    .o. WordFinStressedLenition
+    .o. WordFinObstruentDevoicing
+    .o. WordFinAffrication
+    .o. InterConFrication
+    .o. PreStopTrill
+    .o. GlideFinalVocalization
+    .o. VocDeletion
+    .o. Syllabify
+    ;
 
 define Grammar [Exceptions .P. Grammar];
