@@ -1,6 +1,6 @@
-source big.grammar.foma
+source big-grammar/big.grammar.foma
 
-read lexc big.sr.lexicon.lexc
+read lexc big-grammar/big.sr.lexicon.lexc
 define SRLexicon;
 
 define CorrectMadePredictions [SRLexicon & Grammar];
