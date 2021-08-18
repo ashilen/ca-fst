@@ -1,0 +1,60 @@
+#!/usr/bin/env python3
+import os
+import copy
+from collections import OrderedDict
+from pprint import pprint
+
+
+GRAMMAR = 'grammar'
+PREDICTIONS = os.path.join(GRAMMAR, 'predictions')
+CORRECT_MADE = os.path.join(PREDICTIONS, 'correct-made.txt')
+CORRECT_MISSED = os.path.join(PREDICTIONS, 'correct-missed.txt')
+INCORRECT_MADE = os.path.join(PREDICTIONS, 'incorrect-made.txt')
+
+TABULATED = os.path.join(PREDICTIONS, 'incorrect-tabulated.txt')
+
+
+def to_dict(f):
+    lines = [line.split() for line in f.readlines()]
+    return {ur: sr for ur, sr in lines}
+
+
+def write_to_file(d, f):
+    for k, v in d.items():
+        f.write('%s\t%s\n' % (
+            k, '\t'.join(v) if isinstance(v, tuple) else v
+        ))
+
+
+with open(CORRECT_MADE) as correct_made_f, \
+     open(CORRECT_MISSED) as correct_missed_f, \
+     open(INCORRECT_MADE) as incorrect_made_f:
+
+    correct_made = to_dict(correct_made_f)
+    correct_missed = to_dict(correct_missed_f)
+    incorrect_made = to_dict(incorrect_made_f)
+
+    new_correct_made = copy.copy(correct_made)
+    new_correct_missed = copy.copy(correct_missed)
+    new_incorrect_made = copy.copy(incorrect_made)
+
+    for ur, sr in incorrect_made.items():
+        if ur in correct_missed and correct_missed[ur] == sr:
+            new_correct_made[ur] = sr
+            del new_correct_missed[ur]
+            del new_incorrect_made[ur]
+
+    for predictions, file in [
+        (new_correct_made, open(CORRECT_MADE, 'w+')),
+        (new_correct_missed, open(CORRECT_MISSED, 'w+')),
+        (new_incorrect_made, open(INCORRECT_MADE, 'w+')),
+    ]:
+        write_to_file(predictions, file)
+
+    table = OrderedDict(
+        (ur, (incorrect_made[ur], correct_missed[ur]))
+        for ur in sorted(new_incorrect_made.keys())
+        if ur in correct_missed
+    )
+
+    write_to_file(table, open(TABULATED, 'w+'))

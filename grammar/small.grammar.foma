@@ -1,7 +1,7 @@
-read lexc big.ur.lexicon.lexc
+read lexc small.ur.lexicon.lexc
 define Lexicon;
 
-source ../features.foma
+source features.foma
 
 # Composite features
 define +dor %-syl & [ %+hi | %+lo | %+back ] ;

@@ -1,0 +1,132 @@
+# Basic features
+define -syl [m|d͡ʒ|n|ð|ɾ|t|p|β|r|j|ʃ|ŋ|s|d|ɣ|z|h|ɲ|ʒ|w|l|v|t͡ʃ|k|f|b|ʎ|ɡ];
+define +cons [m|d͡ʒ|n|ð|ɾ|t|p|β|r|ʃ|ŋ|s|d|ɣ|z|h|ɲ|ʒ|l|v|t͡ʃ|k|f|b|ʎ|ɡ];
+define +cont [ð|ɾ|r|β|j|a|ɔ|ʃ|ə|s|ɣ|z|h|e|ʒ|w|l|v|ɛ|i|f|u|ʎ|o];
+define +son [m|n|ɾ|r|j|a|ɔ|ə|ŋ|h|e|ɲ|w|l|ɛ|i|u|ʎ|o];
+define -cont [m|d͡ʒ|n|d|t͡ʃ|ɲ|k|b|t|p|ɡ|ŋ];
+define -delrel [m|n|ð|t|p|β|j|a|ɔ|ʃ|ə|ŋ|s|d|ɣ|z|h|e|ɲ|ʒ|w|l|v|ɛ|i|k|f|u|b|ɡ|o];
+define -lat [m|d͡ʒ|n|ð|ɾ|t|p|β|r|j|a|ɔ|ʃ|ə|ŋ|s|d|ɣ|z|h|e|ɲ|ʒ|w|v|ɛ|i|t͡ʃ|k|f|u|b|ɡ|o];
+define +nas [m|ɲ|ŋ|n];
+define +voi [m|d͡ʒ|n|ð|ɾ|β|r|j|a|ɔ|ə|ŋ|d|ɣ|z|e|ɲ|ʒ|w|l|v|ɛ|i|u|b|ʎ|ɡ|o];
+define -sg [m|d͡ʒ|n|ð|ɾ|t|p|β|r|j|a|ɔ|ʃ|ə|ŋ|s|d|ɣ|z|h|e|ɲ|ʒ|w|l|v|ɛ|i|t͡ʃ|k|f|u|b|ʎ|ɡ|o];
+define -cg [m|d͡ʒ|n|ð|ɾ|t|p|β|r|j|a|ɔ|ʃ|ə|ŋ|s|d|ɣ|z|h|e|ɲ|ʒ|w|l|v|ɛ|i|t͡ʃ|k|f|u|b|ʎ|ɡ|o];
+define +ant [m|s|v|n|d|z|ð|f|b|l|ɾ|t|p|β|r];
+define -cor [m|p|β|j|a|ɔ|ə|ŋ|ɣ|h|e|ɲ|w|v|ɛ|i|k|f|u|b|ɡ|o];
+define +lab [m|v|f|w|u|b|p|β];
+define -hi [m|d͡ʒ|n|ð|t|p|β|a|ɔ|ʃ|ə|s|d|z|h|e|ʒ|l|v|ɛ|t͡ʃ|f|b|o];
+define -lo [m|d͡ʒ|n|ð|t|p|β|j|ɔ|ʃ|ə|ŋ|s|d|ɣ|z|h|e|ɲ|ʒ|w|l|v|ɛ|i|t͡ʃ|k|f|u|b|ʎ|ɡ|o];
+define -back [m|d͡ʒ|n|ð|t|p|β|j|a|ʃ|s|d|z|h|e|ɲ|ʒ|l|v|ɛ|i|t͡ʃ|f|b|ʎ];
+define -round [m|d͡ʒ|n|ð|ɾ|t|p|β|r|j|a|ʃ|ə|ŋ|s|d|ɣ|z|h|e|ɲ|ʒ|l|v|ɛ|i|t͡ʃ|k|f|b|ʎ|ɡ];
+define -velaric [m|d͡ʒ|n|ð|ɾ|t|p|β|r|j|a|ɔ|ʃ|ə|ŋ|s|d|ɣ|z|h|e|ɲ|ʒ|w|l|v|ɛ|i|t͡ʃ|k|f|u|b|ʎ|ɡ|o];
+define -long [m|d͡ʒ|n|ð|ɾ|t|p|β|r|j|a|ɔ|ʃ|ə|ŋ|s|d|ɣ|z|h|e|ɲ|ʒ|w|l|v|ɛ|i|t͡ʃ|k|f|u|b|ʎ|ɡ|o];
+define -son [d͡ʒ|s|v|d|ɣ|z|ʃ|t͡ʃ|ʒ|ð|k|f|b|t|p|ɡ|β];
+define +delrel [d͡ʒ|t͡ʃ];
+define -nas [d͡ʒ|ð|ɾ|t|p|β|r|j|a|ɔ|ʃ|ə|s|d|ɣ|z|h|e|ʒ|w|l|v|ɛ|i|t͡ʃ|k|f|u|b|ʎ|ɡ|o];
+define -ant [d͡ʒ|j|ɣ|h|t͡ʃ|ɲ|ʒ|k|w|ʎ|ʃ|ɡ|ŋ];
+define +cor [d͡ʒ|s|n|d|z|ʃ|t͡ʃ|ʒ|ð|ʎ|l|ɾ|t|r];
+define +distr [d͡ʒ|t͡ʃ|ʒ|ð|ʎ|ʃ];
+define -lab [d͡ʒ|n|ð|ɾ|t|r|j|a|ɔ|ʃ|ə|ŋ|s|d|ɣ|z|h|e|ɲ|ʒ|l|ɛ|i|t͡ʃ|k|ʎ|ɡ|o];
+define -distr [s|n|d|z|l|ɾ|t|r];
+define -voi [s|h|ʃ|t͡ʃ|k|f|t|p];
+define -strid [β];
+define -cons [i|j|a|ɔ|e|w|u|ə|ɛ|o];
+define +hi [i|j|ɣ|ɲ|k|w|u|ʎ|ɡ|ŋ];
+define +syl [i|a|ɔ|e|u|ə|ɛ|o];
+define +lo [a];
+define +tense [i|a|e|u|o];
+define +back [ɣ|ɔ|k|w|u|ə|ɡ|ŋ|o];
+define +round [w|ɔ|u|o];
+define -tense [ɔ|ɛ|ə];
+define +lat [ʎ|l];
+define +strid [f|v];
+define alph [a|b|d|d͡ʒ|e|f|h|i|j|k|l|m|n|o|p|r|s|t|t͡ʃ|u|v|w|z|ð|ŋ|ɔ|ə|ɛ|ɡ|ɣ|ɲ|ɾ|ʃ|ʎ|ʒ|β];
+
+# Composite features
+define +dor %-syl & [ %+hi | %+lo | %+back ];
+define +pal %-syl & [ %-ant & %-cor & %+hi & %-lo & %-back ];
+define +vel %-syl & [ %-ant & %-cor & %+hi & %-lo & %+back ];
+define +plos [ %-son & %-cont & %-delrel ];
+define +fric [ %-son & %+cont ];
+define +approx [ %+son & %-nas ];
+define -approx [ ~%+approx | ɾ ];
+define +strid [ʃ | s | z | ʒ];
+define +rho [%-syl & %+son & %+cons & %+ant & %+cont & %-lat];
+
+# Inflections
+define Inflection %+Masc -> 0, %+Fem -> ə;
+
+# Word final sonorant consonantal deletion, /n r/
+# Only on stressed syllables, not following /r/
+# Still exceptions:
+#   - not monosyllabic?
+define TapDeletion ɾ -> 0 || _ .#.;
+define NasalDeletion n -> 0 || 1[alph*][\%+rho] _ .#.;
+
+# [ %-approx & %-syl & %+cor & %+son ] -> 0
+define SonCorDeletion TapDeletion .o. NasalDeletion;
+
+# Tap becomes a trill before stops.
+# Placing this after InterConFrication to avoid e.g.
+#   - ʃəm-1bɛɾɡ+Fem ʃəm-1bɛr-ɣə
+# but maybe sensitivity to syllable boundary would be more correct?
+define PreStopTrill ɾ -> r || _%+plos;
+
+# Sometimes word final rhotic tap becomes trill instead of being deleted
+define Trill ɾ -> r || 1[alpha*][%+round] _ .#.;
+
+# Adjacent homorganic cons deletion
+define HomCorDeletion [ %-syl & %+cor ] -> 0 || [\%+rho & %+cons & %+cor & %+son ] _ .#.;
+define HomDorDeletion [ %-syl & %+dor ] -> 0 || [ %+cons & %+dor & %+son ] _ .#.;
+
+define HomDeletion HomCorDeletion .o. HomDorDeletion;
+
+# Nasal place assimilation
+# Also, by specifying -ant we're predicting h and t͡ʃ, but maybe that makes sense.
+define AnteriorAssim n -> ɲ || _ [ %-ant ];
+define VelarAssim n -> ŋ || _ [ %+vel ];
+define NasalPlaceAssim VelarAssim .o. AnteriorAssim;
+
+# Vocalic deletion: vowels followed by word-final vowels are deleted, with a few exceptions.
+define VocDeletion [ %+syl & %+back] -> 0 || _ [ %+syl ] .#.;
+
+define VocDeletionExceptions [[{nu}   "+Fem" .x. {nuə}] | [{kru}  "+Fem" .x. {kruə}]];
+
+# Stressed word final lenition of [ ɛ | b ] -> uw
+# Has to precede WordFinObstruentDevoicing
+define WordFinStressedLenition b -> uw || 1[alph*] _ .#.;
+
+# Needs to go before SonCorDeletion to avoid e.g.
+#   - mi-u-1sɛn+Masc    mi-u-1sɛuw
+define WordFinStressedLengthening ɛ -> ɛuw || 1[alph*] _ .#.;
+
+# Word final obstruent devoicing
+define WordFinObstruentDevoicing ɡ -> k, d -> t, b -> p, z -> s || _ .#.;
+
+# Word final affrication
+# [+fric] -> [-cont, +delrel]
+define WordFinAffrication ʒ -> t͡ʃ, ð -> d͡ʒ || _ .#.;
+
+# Voiced stops become (continuant) fricatives in between sonorant continuants
+# [ %+plos & %+voi ] -> [ %+cont ] || [ %+son & %+cont ] _ [ %+son & %+cont ]
+define InterConFrication ɡ -> ɣ, d -> ð, b -> β || [ %+son & %+cont ] _ [ %+son & %+cont ];
+
+# ɔ -> o when stressed
+define StressedVowelHeightening ɛ -> e, ɔ -> o || 1[alph*] _;
+
+define StressedVowelLowering e -> ɛ, o -> ɔ || 1[alph*] _ "ks", 1[alph*];
+
+# primitive re-syllabification of word ending with attached schwa, when
+# preceding phone doesn't follow a stop
+define Syllabify0 [ %-syl ] -> %- ... || [\%-][ %+son | %+cont ] _ [%+syl] .#.;
+define Syllabify1 [ %+syl ] -> %- ... || [%+syl & %-back] _ .#.;
+define Syllabify Syllabify0 .o. Syllabify1;
+
+define glide [ %+son & %+cont & %-cons & %-syl];
+define GlideFinalVocalization glide -> i || ɾ _ .#.;
+
+define VelFinalWEpen [%+vel] -> ... w || _ .#.;
+
+# Surely there will be more.
+define Exceptions VocDeletionExceptions;
+
+chain Inflection, WordFinStressedLengthening, SonCorDeletion, HomDeletion, WordFinStressedLenition, WordFinObstruentDevoicing, WordFinAffrication, InterConFrication, PreStopTrill, GlideFinalVocalization, VocDeletion, Syllabify;

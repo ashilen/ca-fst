@@ -1,17 +1,17 @@
-source big-grammar/big.grammar.foma
+source big.grammar.foma
 
-read lexc big-grammar/big.sr.lexicon.lexc
+read lexc big.sr.lexicon.lexc
 define SRLexicon;
 
 define CorrectMadePredictions [SRLexicon & Grammar];
-define CorrectUnmadePredictions [SRLexicon - Grammar];
+define CorrectMissedPredictions [SRLexicon - Grammar];
 define IncorrectPredictions [Grammar - SRLexicon];
 
-regex CorrectUnmadePredictions;
-pairs > correct
+regex CorrectMadePredictions;
+pairs > predictions/correct-made.txt
+
+regex CorrectMissedPredictions;
+pairs > predictions/correct-missed.txt
 
 regex IncorrectPredictions;
-pairs > incorrect
-
-regex CorrectMadePredictions;
-pairs > correctly-derived
+pairs > predictions/incorrect-made.txt
