@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import os
-import copy
+import csv
 from collections import defaultdict
 import pprint
 import argparse
@@ -48,6 +48,8 @@ class Tabulator:
     CORRECT = 'CORRECT'
     INCORRECT = 'INCORRECT'
 
+    PREDICTION_TYPES = [CORRECT, INCORRECT]
+
     def __init__(self, grammar_file_name):
         with open(CORRECT_MADE) as correct_made_f, \
              open(CORRECT_MISSED) as correct_missed_f, \
@@ -62,11 +64,15 @@ class Tabulator:
             self._ruleset = Ruleset()
             self._ruleset.readrules(grammar_lines)
 
-        self._rule_application_count = defaultdict(lambda: defaultdict(int))
+        self._rule_application_count = defaultdict(lambda: defaultdict(lambda: 0))
 
     @property
     def ruleset(self):
         return self._ruleset
+
+    @property
+    def missed_predictions(self):
+        return self._correct_missed
 
     @property
     def correct_predictions(self):
@@ -82,13 +88,19 @@ class Tabulator:
             self.incorrect_made
         ]
 
-    def rule_application_count(self, prediction_type='correct'):
-        return self._rule_application_count[prediction_type]
+    def rule_application_count(self, prediction_type=None):
+        if prediction_type:
+            return {
+                rule: prediction[prediction_type]
+                for rule, prediction in self._rule_application_count.items()
+            }
+        else:
+            return self._rule_application_count
 
     def to_dict(self, f):
         lines = [line.split() for line in f.readlines()]
         return {
-            ur: {Tabulator.UR: ur, Tabulator.SR: sr, Tabulator.RULES: []}
+            ur: {Tabulator.UR: ur, Tabulator.SR: sr, Tabulator.RULES: ''}
             for ur, sr in lines
         }
 
@@ -106,15 +118,18 @@ class Tabulator:
             urs = prediction_dict.keys()
 
             for ur in urs:
-                ur_bytes = ur.encode()
                 applicable_rules = self.ruleset.applicable_rules_for_word(
-                    ur_bytes
+                    ur.encode()
                 )
 
-                for applicable_rule in applicable_rules:
-                    self._rule_application_count[prediction_type][applicable_rule] += 1
+                applicable_rules_string = "".join(
+                    "[%s]" % rule for rule in applicable_rules
+                )
 
-                prediction_dict[ur][Tabulator.RULES] += applicable_rules
+                self._rule_application_count[applicable_rules_string][prediction_type] += 1
+                self._rule_application_count[applicable_rules_string][Tabulator.RULES] = applicable_rules_string
+
+                prediction_dict[ur][Tabulator.RULES] = applicable_rules_string
 
     def derivation_for_word(self, word):
         self.ruleset.applyrules(word.encode())
@@ -125,17 +140,56 @@ class Tabulator:
                 ur = line.split()[0].encode()
                 yield self.ruleset.applyrules(ur, printall=False)
 
-    """
-    def application_count(self):
-        underlying_reps = [
-            line.split()[0] for line
-            in incorrect_predictions_f.readlines()
-        ]
+    def write_tabulation_count(self, file):
+        with open(file, 'w', newline='') as f:
 
-        for ur in underlying_reps:
-            rule_application = r.applyrules(ur.encode(), printall=False)
-            print(rule_application)
-    """
+            writer = csv.DictWriter(
+                f, fieldnames=[Tabulator.RULES] + Tabulator.PREDICTION_TYPES,
+                delimiter='\t'
+            )
+            writer.writeheader()
+            rows = sorted(
+                self._rule_application_count.values(),
+                key=lambda row: row[Tabulator.RULES]
+            )
+            writer.writerows(rows)
+
+    def write_tabulation_examples(self, file):
+        with open(file, 'w', newline='') as f:
+            CORRECT_SR = "Correct " + Tabulator.SR
+            INCORRECT_SR = "Incorrect " + Tabulator.SR
+
+            writer = csv.DictWriter(
+                f, fieldnames=[
+                    Tabulator.UR,
+                    INCORRECT_SR,
+                    CORRECT_SR
+                ],
+                delimiter='\t'
+            )
+
+            for ruleset in sorted(
+                self._rule_application_count.keys(),
+                key=lambda ruleset: (
+                    self._rule_application_count[ruleset][Tabulator.INCORRECT]
+                )
+            ):
+                applicable_predictions = [
+                    {
+                        Tabulator.UR: ur,
+                        INCORRECT_SR: prediction[Tabulator.SR],
+                        CORRECT_SR: self.missed_predictions[ur][Tabulator.SR]
+                    } for ur, prediction
+                    in self.incorrect_predictions.items()
+                    if ruleset == prediction[Tabulator.RULES] and (
+                        ur in self.missed_predictions
+                    )
+                ]
+
+                writer.writerow({Tabulator.UR: ruleset})
+                writer.writeheader()
+                writer.writerows(applicable_predictions)
+                writer.writerow({Tabulator.UR: ''})
 
 
 def main():
@@ -144,8 +198,11 @@ def main():
     parser.add_argument("--word", type=str)
     parser.add_argument("--grammar", type=str)
     parser.add_argument("--original", action="store_true")
-    parser.add_argument("--correct", action="store_true")
-    parser.add_argument("--incorrect", action="store_true")
+    parser.add_argument("--count", action="store_true")
+    parser.add_argument("--examples", action="store_true")
+    parser.add_argument("--correct", action='store_const', const=Tabulator.CORRECT)
+    parser.add_argument("--incorrect", action='store_const', const=Tabulator.INCORRECT)
+    parser.add_argument("--dest", type=str, help="output file")
     args = parser.parse_args()
 
     tabulator = Tabulator(grammar_file_name=args.grammar)
@@ -160,15 +217,30 @@ def main():
         for derivation in tabulator.original():
             print(derivation)
             print("\n")
-    elif args.correct:
+    elif args.count:
         tabulator.tabulate()
-        pprint.pprint(tabulator.rule_application_count(Tabulator.CORRECT))
-    elif args.incorrect:
+
+        if args.dest:
+            tabulator.write_tabulation_count(file=args.dest)
+        else:
+            prediction_type = args.correct or args.incorrect or None
+            pprint.pprint(
+                tabulator.rule_application_count(
+                    prediction_type
+                )
+            )
+    elif args.examples:
         tabulator.tabulate()
-        pprint.pprint(tabulator.rule_application_count(Tabulator.INCORRECT))
-    else:
-        tabulator.tabulate()
-        pprint.pprint(tabulator.rule_application_count)
+
+        if args.dest:
+            tabulator.write_tabulation_examples(file=args.dest)
+        else:
+            prediction_type = args.correct or args.incorrect or None
+            pprint.pprint(
+                tabulator.rule_application_examples(
+                    prediction_type
+                )
+            )
 
 
 if __name__ == "__main__":
