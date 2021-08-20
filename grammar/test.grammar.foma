@@ -2,14 +2,17 @@ read lexc big.ur.lexicon.lexc
 define Lexicon;
 
 source big.grammar.foma
-define Grammar [Lexicon .o. Grammar];
+define Predictions [Lexicon .o. Grammar];
 
 read lexc big.sr.lexicon.lexc
 define SRLexicon;
 
-define CorrectMadePredictions [SRLexicon & Grammar];
-define CorrectMissedPredictions [SRLexicon - Grammar];
-define IncorrectPredictions [Grammar - SRLexicon];
+define CorrectMadePredictions [SRLexicon & Predictions];
+define CorrectMissedPredictions [SRLexicon - Predictions];
+define IncorrectPredictions [Predictions - SRLexicon];
+
+regex Predictions;
+pairs > predictions/all.txt
 
 regex CorrectMadePredictions;
 pairs > predictions/correct-made.txt

@@ -1,0 +1,441 @@
+RULES	CORRECT	INCORRECT	
+[Inflection]	4626	167	
+[Inflection][GlideFinalVocalization][Syllabify]	6	0	
+[Inflection][HomDeletion]	244	29	
+[Inflection][InterConFrication][Syllabify]	1747	1	
+[Inflection][PreStopTrill][WordFinObstruentDevoicing]	31	3	
+[Inflection][PreStopTrill][WordFinStressedLenition]		4	
+[Inflection][SonCorDeletion]	2685	93	
+[Inflection][SonCorDeletion][Syllabify]		29	
+[Inflection][Syllabify]	8657	15	
+[Inflection][VocDeletion]	213	29	
+[Inflection][VocDeletion][Syllabify]		4	
+[Inflection][WordFinAffrication]	8	2	
+[Inflection][WordFinObstruentDevoicing]	2194	26	
+[Inflection][WordFinStressedLengthening]	29	1	
+[Inflection][WordFinStressedLenition]	594	9	
+	21034	412	
+			
+RULES	CORRECT	INCORRECT	
+[Inflection]	4626	167	
+[Inflection][GlideFinalVocalization][Syllabify]	6	0	
+[Inflection][HomDeletion]	244	29	
+[Inflection][InterConFrication][Syllabify]	1747	1	
+[Inflection][SonCorDeletion]	2685	93	
+[Inflection][SonCorDeletion][Syllabify]		29	
+[Inflection][Syllabify]	8657	15	
+[Inflection][VocDeletion]	213	29	
+[Inflection][VocDeletion][Syllabify]		4	
+[Inflection][WordFinAffrication]	8	2	
+[Inflection][WordFinObstruentDevoicing]	2194	26	
+[Inflection][WordFinObstruentDevoicing][PreStopTrill]	31	3	
+[Inflection][WordFinStressedLengthening]	29	1	
+[Inflection][WordFinStressedLenition]	594	13	
+	21034	412	
+			
+RULES	CORRECT	INCORRECT	
+[Inflection]	4626	167	
+[Inflection][GlideFinalVocalization][Syllabify]	6	0	
+[Inflection][HomDeletion]	244	29	
+[Inflection][InterConFrication][Syllabify]	1747	1	
+[Inflection][SonCorDeletion]	2685	93	
+[Inflection][SonCorDeletion][Syllabify]		29	
+[Inflection][Syllabify]	8657	15	
+[Inflection][VocDeletion]	213	29	
+[Inflection][VocDeletion][Syllabify]		4	
+[Inflection][WordFinAffrication]	8	2	
+[Inflection][WordFinObstruentDevoicing]	2194	26	
+[Inflection][WordFinObstruentDevoicing][PreStopTrill]	31	3	
+[Inflection][WordFinStressedLengthening]	29	1	
+[Inflection][WordFinStressedLenition]	594	13	
+	21034	412	
+			
+RULES	CORRECT	INCORRECT	
+[Inflection]	4625	137	
+[Inflection][GlideFinalVocalization][Syllabify]	6	0	
+[Inflection][HomDeletion]	244	29	
+[Inflection][InterConFrication][Syllabify]	1747	1	
+[Inflection][SonCorDeletion]	2685	93	
+[Inflection][SonCorDeletion][Syllabify]		29	
+[Inflection][StressedVowelLowering]	1	30	
+[Inflection][Syllabify]	8657	15	
+[Inflection][VocDeletion]	212	29	
+[Inflection][VocDeletion][StressedVowelLowering]	1	0	
+[Inflection][VocDeletion][Syllabify]		4	
+[Inflection][WordFinAffrication]	8	2	
+[Inflection][WordFinObstruentDevoicing]	2194	26	
+[Inflection][WordFinObstruentDevoicing][PreStopTrill]	31	3	
+[Inflection][WordFinStressedLengthening]	29	1	
+[Inflection][WordFinStressedLenition]	594	13	
+	21034	412	
+			
+RULES	CORRECT	INCORRECT	
+[Inflection]	4625	137	
+[Inflection][GlideFinalVocalization][Syllabify]	6	0	
+[Inflection][HomDeletion]	244	29	
+[Inflection][InterConFrication][Syllabify]	1747	1	
+[Inflection][SonCorDeletion]	2685	93	
+[Inflection][SonCorDeletion][Syllabify]		29	
+[Inflection][StressedVowelLowering]	1	30	
+[Inflection][Syllabify]	8657	15	
+[Inflection][VocDeletion]	212	29	
+[Inflection][VocDeletion][StressedVowelLowering]	1	0	
+[Inflection][VocDeletion][Syllabify]		4	
+[Inflection][WordFinAffrication]	8	2	
+[Inflection][WordFinObstruentDevoicing]	2194	26	
+[Inflection][WordFinObstruentDevoicing][PreStopTrill]	31	3	
+[Inflection][WordFinStressedLengthening]	29	1	
+[Inflection][WordFinStressedLenition]	594	13	
+	21034	412	
+			
+RULES	CORRECT	INCORRECT	
+[Inflection]	4625	137	
+[Inflection][GlideFinalVocalization][Syllabify]	6	0	
+[Inflection][HomDeletion]	244	29	
+[Inflection][InterConFrication][Syllabify]	1747	1	
+[Inflection][SonCorDeletion]	2685	93	
+[Inflection][SonCorDeletion][Syllabify]	0	29	
+[Inflection][StressedVowelLowering]	1	30	
+[Inflection][Syllabify]	8657	15	
+[Inflection][VocDeletion]	212	29	
+[Inflection][VocDeletion][StressedVowelLowering]	1	0	
+[Inflection][VocDeletion][Syllabify]	0	4	
+[Inflection][WordFinAffrication]	8	2	
+[Inflection][WordFinObstruentDevoicing]	2194	26	
+[Inflection][WordFinObstruentDevoicing][PreStopTrill]	31	3	
+[Inflection][WordFinStressedLengthening]	29	1	
+[Inflection][WordFinStressedLenition]	594	13	
+	21034	412	
+			
+RULES	CORRECT	INCORRECT	
+[Inflection]	4625	137	
+[Inflection][GlideFinalVocalization][Syllabify]	6	0	
+[Inflection][HomDeletion]	244	29	
+[Inflection][InterConFrication][Syllabify]	1747	1	
+[Inflection][SonCorDeletion]	2685	93	
+[Inflection][SonCorDeletion][Syllabify]	0	29	
+[Inflection][StressedVowelLowering]	1	30	
+[Inflection][Syllabify]	8657	15	
+[Inflection][VocDeletion]	212	29	
+[Inflection][VocDeletion][StressedVowelLowering]	1	0	
+[Inflection][VocDeletion][Syllabify]	0	4	
+[Inflection][WordFinAffrication]	8	2	
+[Inflection][WordFinObstruentDevoicing]	2194	26	
+[Inflection][WordFinObstruentDevoicing][PreStopTrill]	31	3	
+[Inflection][WordFinStressedLengthening]	29	1	
+[Inflection][WordFinStressedLenition]	594	13	
+	21034	412	
+			
+RULES	CORRECT	INCORRECT	
+[Inflection]	4657	16757	
+[Inflection][StressedVowelLowering]	1	31	
+	4658	16788	
+			
+RULES	CORRECT	INCORRECT	
+[Inflection]	4657	16757	
+[Inflection][StressedVowelLowering]	1	31	
+	4658	16788	
+			
+RULES	CORRECT	INCORRECT	
+[Inflection]	4500	119	
+[Inflection][GlideFinalVocalization][Syllabify]	6	0	
+[Inflection][HomDeletion]	208	26	
+[Inflection][HomDeletion][StressedVowelLowering]	0	39	
+[Inflection][InterConFrication][StressedVowelLowering][Syllabify]	0	12	
+[Inflection][InterConFrication][Syllabify]	1735	1	
+[Inflection][SonCorDeletion]	852	66	
+[Inflection][SonCorDeletion][StressedVowelLowering]	0	1860	
+[Inflection][SonCorDeletion][StressedVowelLowering][Syllabify]	0	20	
+[Inflection][SonCorDeletion][Syllabify]	0	9	
+[Inflection][StressedVowelLowering]	26	148	
+[Inflection][StressedVowelLowering][Syllabify]	0	2945	
+[Inflection][Syllabify]	5713	14	
+[Inflection][VocDeletion]	165	28	
+[Inflection][VocDeletion][StressedVowelLowering]	1	48	
+[Inflection][VocDeletion][Syllabify]	0	4	
+[Inflection][WordFinAffrication]	8	1	
+[Inflection][WordFinAffrication][StressedVowelLowering]	0	1	
+[Inflection][WordFinObstruentDevoicing]	1267	17	
+[Inflection][WordFinObstruentDevoicing][PreStopTrill]	28	3	
+[Inflection][WordFinObstruentDevoicing][PreStopTrill][StressedVowelLowering]	0	3	
+[Inflection][WordFinObstruentDevoicing][StressedVowelLowering]	3	933	
+[Inflection][WordFinStressedLengthening]	29	1	
+[Inflection][WordFinStressedLenition]	592	12	
+[Inflection][WordFinStressedLenition][StressedVowelLowering]	0	3	
+	15133	6313	
+			
+RULES	CORRECT	INCORRECT	
+[Inflection]	4593	134	
+[Inflection][GlideFinalVocalization][Syllabify]	6	0	
+[Inflection][HomDeletion]	244	29	
+[Inflection][InterConFrication][Syllabify]	1747	1	
+[Inflection][SonCorDeletion]	2685	93	
+[Inflection][SonCorDeletion][Syllabify]	0	29	
+[Inflection][StressedVowelLowering]	17	49	
+[Inflection][StressedVowelLowering][Syllabify]	0	11	
+[Inflection][Syllabify]	8646	15	
+[Inflection][VocDeletion]	189	29	
+[Inflection][VocDeletion][StressedVowelLowering]	0	24	
+[Inflection][VocDeletion][Syllabify]	0	4	
+[Inflection][WordFinAffrication]	8	1	
+[Inflection][WordFinAffrication][StressedVowelLowering]	0	1	
+[Inflection][WordFinObstruentDevoicing]	2191	24	
+[Inflection][WordFinObstruentDevoicing][PreStopTrill]	31	3	
+[Inflection][WordFinObstruentDevoicing][StressedVowelLowering]	2	3	
+[Inflection][WordFinStressedLengthening]	29	1	
+[Inflection][WordFinStressedLenition]	594	13	
+	20982	464	
+			
+RULES	CORRECT	INCORRECT	
+[Inflection]	4625	137	
+[Inflection][GlideFinalVocalization][Syllabify]	6	0	
+[Inflection][HomDeletion]	244	29	
+[Inflection][InterConFrication][Syllabify]	1747	1	
+[Inflection][SonCorDeletion]	2685	93	
+[Inflection][SonCorDeletion][Syllabify]	0	29	
+[Inflection][StressedVowelLowering]	1	30	
+[Inflection][Syllabify]	8657	15	
+[Inflection][VocDeletion]	212	29	
+[Inflection][VocDeletion][StressedVowelLowering]	1	0	
+[Inflection][VocDeletion][Syllabify]	0	4	
+[Inflection][WordFinAffrication]	8	2	
+[Inflection][WordFinObstruentDevoicing]	2194	26	
+[Inflection][WordFinObstruentDevoicing][PreStopTrill]	31	3	
+[Inflection][WordFinStressedLengthening]	29	1	
+[Inflection][WordFinStressedLenition]	594	13	
+	21034	412	
+			
+RULES	CORRECT	INCORRECT	ORDER
+[Inflection]	4625	137	Inflection
+[Inflection][GlideFinalVocalization][Syllabify]	6	0	WordFinStressedLengthening
+[Inflection][HomDeletion]	244	29	SonCorDeletion
+[Inflection][InterConFrication][Syllabify]	1747	1	HomDeletion
+[Inflection][SonCorDeletion]	2685	93	WordFinStressedLenition
+[Inflection][SonCorDeletion][Syllabify]	0	29	WordFinObstruentDevoicing
+[Inflection][StressedVowelLowering]	1	30	WordFinAffrication
+[Inflection][Syllabify]	8657	15	InterConFrication
+[Inflection][VocDeletion]	212	29	PreStopTrill
+[Inflection][VocDeletion][StressedVowelLowering]	1	0	GlideFinalVocalization
+[Inflection][VocDeletion][Syllabify]	0	4	VocDeletion
+[Inflection][WordFinAffrication]	8	2	StressedVowelLowering
+[Inflection][WordFinObstruentDevoicing]	2194	26	Syllabify
+[Inflection][WordFinObstruentDevoicing][PreStopTrill]	31	3	
+[Inflection][WordFinStressedLengthening]	29	1	
+[Inflection][WordFinStressedLenition]	594	13	
+	21034	412	
+			
+RULES	CORRECT	INCORRECT	ORDER
+			
+RULES	CORRECT	INCORRECT	ORDER
+[Inflection][StressedVowelLowering]	0	2	
+	0	2	
+			
+RULES	CORRECT	INCORRECT	ORDER
+[Inflection][StressedVowelLowering]	1	1	
+	1	1	
+			
+RULES	CORRECT	INCORRECT	ORDER
+[Inflection][StressedVowelLowering]	1	1	
+	1	1	
+			
+RULES	CORRECT	INCORRECT	ORDER
+[Inflection][StressedVowelLowering]	0	2	
+	0	2	
+			
+RULES	CORRECT	INCORRECT	ORDER
+[Inflection]	4625	137	
+[Inflection][GlideFinalVocalization][Syllabify]	6	0	
+[Inflection][HomDeletion]	244	29	
+[Inflection][InterConFrication][Syllabify]	1747	1	
+[Inflection][SonCorDeletion]	2685	93	
+[Inflection][SonCorDeletion][Syllabify]	0	29	
+[Inflection][StressedVowelLowering]	15	16	
+[Inflection][Syllabify]	8657	15	
+[Inflection][VocDeletion]	212	29	
+[Inflection][VocDeletion][StressedVowelLowering]	0	1	
+[Inflection][VocDeletion][Syllabify]	0	4	
+[Inflection][WordFinAffrication]	8	2	
+[Inflection][WordFinObstruentDevoicing]	2194	26	
+[Inflection][WordFinObstruentDevoicing][PreStopTrill]	31	3	
+[Inflection][WordFinStressedLengthening]	29	1	
+[Inflection][WordFinStressedLenition]	594	13	
+	21047	399	
+			
+RULES	CORRECT	INCORRECT	ORDER
+[Inflection]	4625	137	
+[Inflection][GlideFinalVocalization][Syllabify]	6	0	
+[Inflection][HomDeletion]	244	29	
+[Inflection][InterConFrication][Syllabify]	1747	1	
+[Inflection][SonCorDeletion]	2685	93	
+[Inflection][SonCorDeletion][Syllabify]	0	29	
+[Inflection][StressedVowelLowering]	15	16	
+[Inflection][Syllabify]	8657	15	
+[Inflection][VocDeletion]	212	29	
+[Inflection][VocDeletion][StressedVowelLowering]	0	1	
+[Inflection][VocDeletion][Syllabify]	0	4	
+[Inflection][WordFinAffrication]	8	2	
+[Inflection][WordFinObstruentDevoicing]	2194	26	
+[Inflection][WordFinObstruentDevoicing][PreStopTrill]	31	3	
+[Inflection][WordFinStressedLengthening]	29	1	
+[Inflection][WordFinStressedLenition]	594	13	
+	21047	399	
+			
+RULES	CORRECT	INCORRECT	ORDER
+[Inflection]	4625	137	
+[Inflection][GlideFinalVocalization][Syllabify0]	6	0	
+[Inflection][HomDeletion]	244	29	
+[Inflection][InterConFrication][Syllabify0]	1747	1	
+[Inflection][SonCorDeletion]	2685	93	
+[Inflection][SonCorDeletion][Syllabify0]	0	29	
+[Inflection][StressedVowelLowering]	15	16	
+[Inflection][Syllabify0]	7852	11	
+[Inflection][Syllabify1]	805	4	
+[Inflection][VocDeletion]	212	29	
+[Inflection][VocDeletion][StressedVowelLowering]	0	1	
+[Inflection][VocDeletion][Syllabify1]	0	4	
+[Inflection][WordFinAffrication]	8	2	
+[Inflection][WordFinObstruentDevoicing]	2194	26	
+[Inflection][WordFinObstruentDevoicing][PreStopTrill]	31	3	
+[Inflection][WordFinStressedLengthening]	29	1	
+[Inflection][WordFinStressedLenition]	594	13	
+	21047	399	
+			
+RULES	CORRECT	INCORRECT	ORDER
+[Inflection]	4625	556	
+[Inflection][GlideFinalVocalization][Syllabify0]	6	0	
+[Inflection][HomDeletion]	244	29	
+[Inflection][InterConFrication]	0	75	
+[Inflection][InterConFrication][Syllabify0]	1672	1	
+[Inflection][SonCorDeletion]	2714	93	
+[Inflection][StressedVowelLowering]	15	16	
+[Inflection][Syllabify0]	7434	10	
+[Inflection][Syllabify1]	805	4	
+[Inflection][VocDeletion]	212	29	
+[Inflection][VocDeletion][StressedVowelLowering]	0	1	
+[Inflection][VocDeletion][Syllabify1]	0	4	
+[Inflection][WordFinAffrication]	8	2	
+[Inflection][WordFinObstruentDevoicing]	2194	26	
+[Inflection][WordFinObstruentDevoicing][PreStopTrill]	31	3	
+[Inflection][WordFinStressedLengthening]	29	1	
+[Inflection][WordFinStressedLenition]	594	13	
+	20583	863	
+			
+RULES	CORRECT	INCORRECT	ORDER
+[Inflection]	4625	137	
+[Inflection][GlideFinalVocalization][Syllabify0]	6	0	
+[Inflection][HomDeletion]	244	29	
+[Inflection][InterConFrication][Syllabify0]	1747	1	
+[Inflection][SonCorDeletion]	2685	93	
+[Inflection][SonCorDeletion][Syllabify0]	0	29	
+[Inflection][StressedVowelLowering]	15	16	
+[Inflection][Syllabify0]	7852	11	
+[Inflection][Syllabify1]	805	4	
+[Inflection][VocDeletion]	212	29	
+[Inflection][VocDeletion][StressedVowelLowering]	0	1	
+[Inflection][VocDeletion][Syllabify1]	0	4	
+[Inflection][WordFinAffrication]	8	2	
+[Inflection][WordFinObstruentDevoicing]	2194	26	
+[Inflection][WordFinObstruentDevoicing][PreStopTrill]	31	3	
+[Inflection][WordFinStressedLengthening]	29	1	
+[Inflection][WordFinStressedLenition]	594	13	
+	21047	399	
+			
+RULES	CORRECT	INCORRECT	ORDER
+[Inflection]	4625	137	
+[Inflection][GlideFinalVocalization][Syllabify0]	6	0	
+[Inflection][HomDeletion]	244	29	
+[Inflection][InterConFrication][Syllabify0]	1747	1	
+[Inflection][SonCorDeletion]	2685	93	
+[Inflection][SonCorDeletion][Syllabify0]	0	29	
+[Inflection][StressedVowelLowering]	15	16	
+[Inflection][Syllabify0]	7852	11	
+[Inflection][Syllabify1]	805	4	
+[Inflection][VocDeletion]	212	29	
+[Inflection][VocDeletion][StressedVowelLowering]	0	1	
+[Inflection][VocDeletion][Syllabify1]	0	4	
+[Inflection][WordFinAffrication]	8	2	
+[Inflection][WordFinObstruentDevoicing]	2194	26	
+[Inflection][WordFinObstruentDevoicing][PreStopTrill]	31	3	
+[Inflection][WordFinStressedLengthening]	29	1	
+[Inflection][WordFinStressedLenition]	594	13	
+	21047	399	
+			
+RULES	CORRECT	INCORRECT	ORDER
+[Inflection]	5043	138	
+[Inflection][GlideFinalVocalization][Syllabify0]	6	0	
+[Inflection][HomDeletion]	244	29	
+[Inflection][InterConFrication]	75	0	
+[Inflection][InterConFrication][Syllabify0]	1672	1	
+[Inflection][SonCorDeletion]	2685	122	
+[Inflection][StressedVowelLowering]	15	16	
+[Inflection][Syllabify0]	7434	10	
+[Inflection][Syllabify1]	805	4	
+[Inflection][VocDeletion]	212	29	
+[Inflection][VocDeletion][StressedVowelLowering]	0	1	
+[Inflection][VocDeletion][Syllabify1]	0	4	
+[Inflection][WordFinAffrication]	8	2	
+[Inflection][WordFinObstruentDevoicing]	2194	26	
+[Inflection][WordFinObstruentDevoicing][PreStopTrill]	31	3	
+[Inflection][WordFinStressedLengthening]	29	1	
+[Inflection][WordFinStressedLenition]	594	13	
+	21047	399	
+			
+RULES	CORRECT	INCORRECT	ORDER
+[Inflection]	4625	137	
+[Inflection][GlideFinalVocalization][Syllabify0]	6	0	
+[Inflection][HomDeletion]	244	29	
+[Inflection][InterConFrication][Syllabify0]	1747	1	
+[Inflection][SonCorDeletion]	2685	93	
+[Inflection][SonCorDeletion][Syllabify0]	0	29	
+[Inflection][StressedVowelLowering]	15	16	
+[Inflection][Syllabify0]	7852	11	
+[Inflection][Syllabify1]	805	4	
+[Inflection][VocDeletion]	212	29	
+[Inflection][VocDeletion][StressedVowelLowering]	0	1	
+[Inflection][VocDeletion][Syllabify1]	0	4	
+[Inflection][WordFinAffrication]	8	2	
+[Inflection][WordFinObstruentDevoicing]	2194	26	
+[Inflection][WordFinObstruentDevoicing][PreStopTrill]	31	3	
+[Inflection][WordFinStressedLengthening]	29	1	
+[Inflection][WordFinStressedLenition]	594	13	
+	21047	399	
+			
+RULES	CORRECT	INCORRECT	ORDER
+[Inflection]	4625	349	Inflection
+[Inflection][GlideFinalVocalization][Syllabify0]	6	0	WordFinStressedLengthening
+[Inflection][HomDeletion]	244	29	SonCorDeletion
+[Inflection][InterConFrication][Syllabify0]	1747	1	HomDeletion
+[Inflection][SonCorDeletion]	2510	56	WordFinStressedLenition
+[Inflection][SonCorDeletion][Syllabify0]	0	29	WordFinObstruentDevoicing
+[Inflection][StressedVowelLowering]	15	16	WordFinAffrication
+[Inflection][Syllabify0]	7852	11	InterConFrication
+[Inflection][Syllabify1]	805	4	PreStopTrill
+[Inflection][VocDeletion]	212	29	GlideFinalVocalization
+[Inflection][VocDeletion][StressedVowelLowering]	0	1	VocDeletion
+[Inflection][VocDeletion][Syllabify1]	0	4	Syllabify0
+[Inflection][WordFinAffrication]	8	2	Syllabify1
+[Inflection][WordFinObstruentDevoicing]	2194	26	StressedVowelLowering
+[Inflection][WordFinObstruentDevoicing][PreStopTrill]	31	3	
+[Inflection][WordFinStressedLengthening]	29	1	
+[Inflection][WordFinStressedLenition]	594	13	
+	20872	574	
+			
+RULES	CORRECT	INCORRECT	ORDER
+[Inflection]	4625	137	Inflection
+[Inflection][GlideFinalVocalization][Syllabify0]	6	0	WordFinStressedLengthening
+[Inflection][HomDeletion]	244	29	SonCorDeletion
+[Inflection][InterConFrication][Syllabify0]	1747	1	HomDeletion
+[Inflection][SonCorDeletion]	2685	93	WordFinStressedLenition
+[Inflection][SonCorDeletion][Syllabify0]	0	29	WordFinObstruentDevoicing
+[Inflection][StressedVowelLowering]	15	16	WordFinAffrication
+[Inflection][Syllabify0]	7852	11	InterConFrication
+[Inflection][Syllabify1]	805	4	PreStopTrill
+[Inflection][VocDeletion]	212	29	GlideFinalVocalization
+[Inflection][VocDeletion][StressedVowelLowering]	0	1	VocDeletion
+[Inflection][VocDeletion][Syllabify1]	0	4	Syllabify0
+[Inflection][WordFinAffrication]	8	2	Syllabify1
+[Inflection][WordFinObstruentDevoicing]	2194	26	StressedVowelLowering
+[Inflection][WordFinObstruentDevoicing][PreStopTrill]	31	3	
+[Inflection][WordFinStressedLengthening]	29	1	
+[Inflection][WordFinStressedLenition]	594	13	
+	21047	399	

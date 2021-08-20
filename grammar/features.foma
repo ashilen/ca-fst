@@ -38,3 +38,14 @@ define +round [w|ɔ|u|o];
 define -tense [ɔ|ɛ|ə];
 define +lat [ʎ|l];
 define +strid [f|v];
+
+# Composite features
+define +dor %-syl & [ %+hi | %+lo | %+back ];
+define +pal %-syl & [ %-ant & %-cor & %+hi & %-lo & %-back ];
+define +vel %-syl & [ %-ant & %-cor & %+hi & %-lo & %+back ];
+define +plos [ %-son & %-cont & %-delrel ];
+define +fric [ %-son & %+cont ];
+define +approx [ %+son & %-nas ];
+define -approx [ ~%+approx | ɾ ];
+define +strid [ʃ | s | z | ʒ];
+define +rho [%-syl & %+son & %+cons & %+ant & %+cont & %-lat];

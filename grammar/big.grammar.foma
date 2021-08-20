@@ -113,7 +113,7 @@ define InterConFrication ɡ -> ɣ, d -> ð, b -> β || [ %+son & %+cont ] _ [ %+
 # ɔ -> o when stressed
 define StressedVowelHeightening ɛ -> e, ɔ -> o || 1[alph*] _;
 
-define StressedVowelLowering e -> ɛ, o -> ɔ || 1[alph*] _ "ks", 1[alph*];
+define StressedVowelLowering e -> ɛ, o -> ɔ || 1[alph*] _ k s;
 
 # primitive re-syllabification of word ending with attached schwa, when
 # preceding phone doesn't follow a stop
@@ -133,16 +133,17 @@ define VelFinalWEpen [%+vel] -> ... w || _ .#.;
 #   .o. StressedVowelHeightening
 #   .o. StressedVowelLowering
 #   .o. VelFinalWEpen
-# WordFinStressedLengthening  # before SonCorDeletion
-# SonCorDeletion
-# HomDeletion
+
+# WordFinStressedLengthening  # before SonCorDel
+# SonCorDeletion              # before HomDeletion
+# HomDeletion        
 # WordFinStressedLenition     # before WordFinObstruentDevoicing
 # WordFinObstruentDevoicing
 # WordFinAffrication
-# InterConFrication
-# PreStopTrill                # before SonCorDel, after InterConFrication
+# InterConFrication           # before PreStopTrill
+# PreStopTrill                
 # GlideFinalVocalization
 # VocDeletion
 # Syllabify
 
-define Grammar Inflection .o. WordFinStressedLengthening .o. SonCorDeletion .o. HomDeletion .o. WordFinStressedLenition .o. WordFinObstruentDevoicing .o. WordFinAffrication .o. InterConFrication .o. PreStopTrill .o. GlideFinalVocalization .o. VocDeletion .o. Syllabify;
+define Grammar Inflection .o. WordFinStressedLengthening .o. SonCorDeletion .o. HomDeletion .o. WordFinStressedLenition .o. WordFinObstruentDevoicing .o. WordFinAffrication .o. InterConFrication .o. PreStopTrill .o. GlideFinalVocalization .o. VocDeletion .o. Syllabify0 .o. Syllabify1 .o. StressedVowelLowering;

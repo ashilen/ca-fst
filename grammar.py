@@ -61,6 +61,7 @@ def fix_predictions():
 def main():
     parser = get_parser()
     parser.add_argument("--exception-dir", type=str, help="output dir")
+    parser.add_argument("-a", action="store_true", help="append to count file")
     args = parser.parse_args()
 
     COMMAND = ['foma', '-f', 'test.grammar.foma']
@@ -74,10 +75,18 @@ def main():
     if not os.path.exists(args.exception_dir) or not os.path.isdir(args.exception_dir):
         os.mkdir(args.exception_dir)
 
-    exception_tables_file = os.path.join(args.exception_dir, 'table.csv')
+    incorrect_examples_tables_file = os.path.join(args.exception_dir, 'incorrect-table.csv')
+    correct_examples_tables_file = os.path.join(args.exception_dir, 'correct-table.csv')
     exception_counts_file = os.path.join(args.exception_dir, 'count.csv')
-    tabulator.write_tabulation_examples(file=exception_tables_file)
-    tabulator.write_tabulation_count(file=exception_counts_file)
+    tabulator.write_tabulation_examples(
+        file=incorrect_examples_tables_file,
+        prediction_type=Tabulator.INCORRECT)
+    tabulator.write_tabulation_examples(
+        file=correct_examples_tables_file,
+        prediction_type=Tabulator.CORRECT)
+    tabulator.write_tabulation_count(
+        file=exception_counts_file,
+        append=args.a)
 
 
 if __name__ == "__main__":

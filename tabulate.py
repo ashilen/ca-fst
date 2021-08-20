@@ -5,6 +5,7 @@ import csv
 from collections import defaultdict, OrderedDict
 import pprint
 import argparse
+import itertools
 from pyfoma.phonrule import Ruleset as _Ruleset
 
 GRAMMAR = 'grammar'
@@ -86,9 +87,16 @@ class Tabulator:
     @property
     def prediction_dicts(self):
         return [
-            self.correct_made,
-            self.incorrect_made
+            self.correct_predictions,
+            self.incorrect_predictions
         ]
+
+    @property
+    def prediction_dicts_map(self):
+        return {
+            Tabulator.CORRECT: self.correct_predictions,
+            Tabulator.INCORRECT: self.incorrect_predictions
+        }
 
     def rule_application_count(self, prediction_type=None):
         if prediction_type:
@@ -134,7 +142,7 @@ class Tabulator:
                 prediction_dict[ur][Tabulator.RULES] = applicable_rules_string
 
     def derivation_for_word(self, word):
-        self.ruleset.applyrules(word.encode())
+        return self.ruleset.applyrules(word.encode(), printall=False)
 
     def original(self):
         with open(TABULATED) as f:
@@ -142,29 +150,55 @@ class Tabulator:
                 ur = line.split()[0].encode()
                 yield self.ruleset.applyrules(ur, printall=False)
 
-    def write_tabulation_count(self, file):
-        with open(file, 'w', newline='') as f:
+    def write_tabulation_count(self, file, append=False):
+        ORDER = "ORDER"
+        rule_order = [
+            {ORDER: rulename} for rulename in self.ruleset.rc
+        ]
+
+        mode = "a" if append else "w"
+        with open(file, mode, newline='') as f:
 
             writer = csv.DictWriter(
-                f, fieldnames=[Tabulator.RULES] + Tabulator.PREDICTION_TYPES,
+                f, fieldnames=[Tabulator.RULES] + Tabulator.PREDICTION_TYPES + [ORDER],
                 delimiter='\t'
             )
+
+            # spacer
+            if append:
+                writer.writerow({Tabulator.RULES: ''})
+
             writer.writeheader()
+
+            vals = self._rule_application_count.values()
+
             rows = sorted(
-                self._rule_application_count.values(),
+                vals,
                 key=lambda row: row[Tabulator.RULES]
             )
-            writer.writerows(rows)
 
-    def write_tabulation_examples(self, file):
+            n = 0
+            while n < len(rule_order):
+                rows[n].update(rule_order[n])
+                n += 1
+
+            writer.writerows(rows)
+            sum_correct = sum([val[Tabulator.CORRECT] for val in vals])
+            sum_incorrect = sum([val[Tabulator.INCORRECT] for val in vals])
+            writer.writerow({
+                Tabulator.CORRECT: sum_correct,
+                Tabulator.INCORRECT: sum_incorrect
+            })
+
+    def write_tabulation_examples(self, file, prediction_type=INCORRECT):
         with open(file, 'w', newline='') as f:
             CORRECT_SR = "Correct " + Tabulator.SR
-            INCORRECT_SR = "Incorrect " + Tabulator.SR
+            PREDICTED_SR = "Predicted " + Tabulator.SR
 
             writer = csv.DictWriter(
                 f, fieldnames=[
                     Tabulator.UR,
-                    INCORRECT_SR,
+                    PREDICTED_SR,
                     CORRECT_SR
                 ],
                 delimiter='\t'
@@ -173,18 +207,30 @@ class Tabulator:
             for ruleset in sorted(
                 self._rule_application_count.keys(),
                 key=lambda ruleset: (
-                    self._rule_application_count[ruleset][Tabulator.INCORRECT]
+                    self._rule_application_count[ruleset][prediction_type]
                 )
             ):
+                correct_column_src = {
+                    Tabulator.CORRECT: self.correct_predictions,
+                    Tabulator.INCORRECT: self.missed_predictions
+                }[prediction_type]
+
+                row_src = self.prediction_dicts_map[prediction_type]
+
+                row_inclusion_predicate = {
+                    Tabulator.INCORRECT: lambda ur: ur in self.missed_predictions,
+                    Tabulator.CORRECT: lambda _: True  # noop
+                }[prediction_type]
+
                 applicable_predictions = [
                     {
                         Tabulator.UR: ur,
-                        INCORRECT_SR: prediction[Tabulator.SR],
-                        CORRECT_SR: self.missed_predictions[ur][Tabulator.SR]
+                        PREDICTED_SR: prediction[Tabulator.SR],
+                        CORRECT_SR: correct_column_src[ur][Tabulator.SR]
                     } for ur, prediction
-                    in self.incorrect_predictions.items()
+                    in row_src.items()
                     if ruleset == prediction[Tabulator.RULES] and (
-                        ur in self.missed_predictions
+                        row_inclusion_predicate(ur)
                     )
                 ]
 
@@ -212,10 +258,6 @@ def main():
     parser = get_parser()
     args = parser.parse_args()
 
-    if args.fix_predictions:
-        Tabulator.fix_predictions()
-        return
-
     tabulator = Tabulator(grammar_file_name=args.grammar)
 
     if args.correct and args.incorrect:
@@ -223,7 +265,8 @@ def main():
 
     if args.word:
         derivation = tabulator.derivation_for_word(args.word)
-        print(derivation)
+        print('DERIVATION:', derivation)
+
     elif args.original:
         for derivation in tabulator.original():
             print(derivation)
@@ -244,7 +287,8 @@ def main():
         tabulator.tabulate()
 
         if args.dest:
-            tabulator.write_tabulation_examples(file=args.exception_dest)
+            tabulator.write_tabulation_examples(
+                file=args.exception_dest)
         else:
             prediction_type = args.correct or args.incorrect or None
             pprint.pprint(
