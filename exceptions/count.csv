@@ -1,0 +1,15 @@
+RULES	CORRECT	INCORRECT
+[Inflection]	4626	167
+[Inflection][GlideFinalVocalization][Syllabify]	6	0
+[Inflection][HomDeletion]	244	29
+[Inflection][InterConFrication][Syllabify]	1747	1
+[Inflection][SonCorDeletion]	2685	93
+[Inflection][SonCorDeletion][Syllabify]		29
+[Inflection][Syllabify]	8657	15
+[Inflection][VocDeletion]	213	29
+[Inflection][VocDeletion][Syllabify]		4
+[Inflection][WordFinAffrication]	8	2
+[Inflection][WordFinObstruentDevoicing]	2194	26
+[Inflection][WordFinObstruentDevoicing][PreStopTrill]	31	3
+[Inflection][WordFinStressedLengthening]	29	1
+[Inflection][WordFinStressedLenition]	594	13

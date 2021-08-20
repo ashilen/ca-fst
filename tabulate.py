@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 import os
+import copy
 import csv
-from collections import defaultdict
+from collections import defaultdict, OrderedDict
 import pprint
 import argparse
 from pyfoma.phonrule import Ruleset as _Ruleset
@@ -14,7 +15,7 @@ INCORRECT_MADE = os.path.join(PREDICTIONS, 'incorrect-made.txt')
 
 TABULATED = os.path.join(PREDICTIONS, 'incorrect-tabulated.txt')
 
-BIG_GRAMMAR = os.path.join(GRAMMAR, 'lim.big.grammar.foma')
+BIG_GRAMMAR = os.path.join(GRAMMAR, 'big.grammar.foma')
 
 
 class Ruleset(_Ruleset):
@@ -59,7 +60,7 @@ class Tabulator:
             self._correct_missed = self.to_dict(correct_missed_f)
             self._incorrect_made = self.to_dict(incorrect_made_f)
 
-        with open(os.path.join(GRAMMAR, grammar_file_name)) as grammar_file:
+        with open(grammar_file_name) as grammar_file:
             grammar_lines = [line.rstrip() for line in grammar_file]
             self._ruleset = Ruleset()
             self._ruleset.readrules(grammar_lines)
@@ -77,6 +78,7 @@ class Tabulator:
     @property
     def correct_predictions(self):
         return self._correct_made
+
     @property
     def incorrect_predictions(self):
         return self._incorrect_made
@@ -192,18 +194,27 @@ class Tabulator:
                 writer.writerow({Tabulator.UR: ''})
 
 
-def main():
+def get_parser():
     parser = argparse.ArgumentParser(
         description="Prediction tabulation utilities.")
     parser.add_argument("--word", type=str)
-    parser.add_argument("--grammar", type=str)
+    parser.add_argument("--grammar", type=str, default=BIG_GRAMMAR)
     parser.add_argument("--original", action="store_true")
     parser.add_argument("--count", action="store_true")
     parser.add_argument("--examples", action="store_true")
     parser.add_argument("--correct", action='store_const', const=Tabulator.CORRECT)
     parser.add_argument("--incorrect", action='store_const', const=Tabulator.INCORRECT)
-    parser.add_argument("--dest", type=str, help="output file")
+    parser.add_argument("--exception-dest", type=str, help="output file")
+    return parser
+
+
+def main():
+    parser = get_parser()
     args = parser.parse_args()
+
+    if args.fix_predictions:
+        Tabulator.fix_predictions()
+        return
 
     tabulator = Tabulator(grammar_file_name=args.grammar)
 
@@ -221,7 +232,7 @@ def main():
         tabulator.tabulate()
 
         if args.dest:
-            tabulator.write_tabulation_count(file=args.dest)
+            tabulator.write_tabulation_count(file=args.exception_dest)
         else:
             prediction_type = args.correct or args.incorrect or None
             pprint.pprint(
@@ -233,7 +244,7 @@ def main():
         tabulator.tabulate()
 
         if args.dest:
-            tabulator.write_tabulation_examples(file=args.dest)
+            tabulator.write_tabulation_examples(file=args.exception_dest)
         else:
             prediction_type = args.correct or args.incorrect or None
             pprint.pprint(

@@ -1,4 +1,8 @@
+read lexc big.ur.lexicon.lexc
+define Lexicon;
+
 source big.grammar.foma
+define Grammar [Lexicon .o. Grammar];
 
 read lexc big.sr.lexicon.lexc
 define SRLexicon;

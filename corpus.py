@@ -227,7 +227,7 @@ class Corpus(RowIterable):
     def get_ur_to_infl(self):
         """Derive underlying representations with some heuristics:
 
-            - Assume UR is fem sing - final phon, plus
+            - Assume UR is fem sing minus final phon, plus
               decontinuation of word final stops:
 
                 ɣ -> ɡ, ð -> d, β -> b.
@@ -241,7 +241,7 @@ class Corpus(RowIterable):
         syllable marker:
             1) dangling consonants become the coda of the previous
                syllable or
-            2) the schwa was the entire syllable
+            2) the vowel was the entire syllable
         """
 
         def to_ur(infl_map, lemma):
