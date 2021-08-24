@@ -146,4 +146,4 @@ define VelFinalWEpen [%+vel] -> ... w || _ .#.;
 # VocDeletion
 # Syllabify
 
-define Grammar Inflection .o. WordFinStressedLengthening .o. SonCorDeletion .o. HomDeletion .o. WordFinStressedLenition .o. WordFinObstruentDevoicing .o. WordFinAffrication .o. InterConFrication .o. PreStopTrill .o. GlideFinalVocalization .o. VocDeletion .o. Syllabify0 .o. Syllabify1 .o. StressedVowelLowering;
+define Grammar Inflection .o. WordFinStressedLengthening .o. TapDeletion .o. NasalDeletion .o. HomDeletion .o. WordFinStressedLenition .o. WordFinObstruentDevoicing .o. WordFinAffrication .o. InterConFrication .o. PreStopTrill .o. GlideFinalVocalization .o. VocDeletion .o. Syllabify0 .o. Syllabify1 .o. StressedVowelLowering;

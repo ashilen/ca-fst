@@ -38,6 +38,17 @@ məɡ-nə-tu-mu1tɾiu+Fem	məɡ-nə-tu-mu1tɾi-ə	məɡ-nə-tu-mu-1tɾiuw
 tək1tɾiu+Fem	tək1tɾi-ə	tək-1tɾiuw
 lu-ku-mu1tɾiu+Fem	lu-ku-mu1tɾi-ə	lu-ku-mu-1tɾiuw
 		
+[Inflection][NasalDeletion][Syllabify0]		
+UR	Predicted SR	Correct SR
+kə-ɾə-1βɾun+Masc	kə-ɾə-1β-ɾu	kə-ɾə-1βɾu
+iz-rə-e-1ljan+Masc	iz-rə-e-1l-ja	iz-rə-e-1lja
+mo-nə-nə-1ɣɾin+Masc	mo-nə-nə-1ɣ-ɾi	mo-nə-nə-1ɣɾi
+fə-1ðɾin+Masc	fə-1ð-ɾi	fə-1ðɾi
+pə-ɾə-1ɣɾin+Masc	pə-ɾə-1ɣ-ɾi	pə-ɾə-1ɣɾi
+pə-lə-1ɣɾin+Masc	pə-lə-1ɣ-ɾi	pə-lə-1ɣɾi
+sə-1ðɾin+Masc	sə-1ð-ɾi	sə-1ðɾi
+ʒi-nə-1βɾin+Masc	ʒi-nə-1β-ɾi	ʒi-nə-1βɾi
+		
 [Inflection][Syllabify0]		
 UR	Predicted SR	Correct SR
 kun-1tiɣw+Fem	kun-1tiɣ-wə	kun-1ti-ɣwə
@@ -86,6 +97,51 @@ ur-tu-1ðoks+Fem	ur-tu-1ðɔksə	ur-tu-1ðok-sə
 rə-1fleks+Fem	rə-1flɛksə	rə-1flek-sə
 rɛ-tɾu-1fleks+Fem	rɛ-tɾu-1flɛksə	rɛ-tɾu-1flek-sə
 bi-kum-1beks+Fem	bi-kum-1bɛksə	bi-kum-1bek-sə
+		
+[Inflection][NasalDeletion]		
+UR	Predicted SR	Correct SR
+il-lə-ɾi-1an+Masc	il-lə-ɾi-1a	hil-lə-ɾi-1a
+mal-1jan+Masc	mal-1ja	ma-li-1a
+turɡ-1man+Masc	turɡ-1ma	turɡ-1man
+ə-fɾu-ə-mə-ɾi-1kan+Masc	ə-fɾu-ə-mə-ɾi-1ka	a-fɾwə-mə-ɾi-1ka
+ə-βə-1jan+Masc	ə-βə-1ja	hə-βə-1ja
+əs-tu-ɾi-1an+Masc	əs-tu-ɾi-1a	əs-tu-1ɾja
+pə-nə-mə-ɾi-1kan+Masc	pə-nə-mə-ɾi-1ka	pa-nə-mə-ɾi-1ka
+pə-le-u-1sɛn+Masc	pə-le-u-1sɛ	pə-lə-u-1sɛ
+pɾə-1ɣon+Masc	pɾə-1ɣo	pɾə-1ɣon
+sə-kəs-pe-ə-ɾi-1an+Masc	sə-kəs-pe-ə-ɾi-1a	ʃəs-pi-ɾi-1a
+sənd-ʒu-1an+Masc	sənd-ʒu-1a	sənd-ʒu-1an
+səd-mə-1zon+Masc	səd-mə-1zo	sɛd-mə-1zo
+ɡəl-tə-1plɛn+Masc	ɡəl-tə-1plɛ	ɡal-tə-1plɛ
+ni-əss-t͡ʃi-1an+Masc	ni-əss-t͡ʃi-1a	nit-ʃi-1a
+1pɾon+Masc	1pɾo	1pɾon
+1nan+Masc	1na	1nan
+1bɔn+Masc	1bɔ	1bɔn
+1blan+Masc	1bla	1blan
+		
+[Inflection][TapDeletion][Syllabify0]		
+UR	Predicted SR	Correct SR
+kəuw-li-1floɾ+Masc	kəuw-li-1f-lo	kəuw-li-1flo
+ku-ɾu-li-1floɾ+Masc	ku-ɾu-li-1f-lo	ku-ɾu-li-1flo
+mul-ti-1flɔɾ+Masc	mul-ti-1f-lɔ	mul-ti-1flɔ
+tu-βi-1floɾ+Masc	tu-βi-1f-lo	tu-βi-1flo
+tu-βu-li-1floɾ+Masc	tu-βu-li-1f-lo	tu-βu-li-1flo
+ə-1ɣɾeɾ+Masc	ə-1ɣ-ɾe	ə-1ɣɾe
+pəuw-si-1floɾ+Masc	pəuw-si-1f-lo	pəuw-si-1flo
+su-1βɾeɾ+Masc	su-1β-ɾe	su-1βɾe
+ɡlu-mi-1floɾ+Masc	ɡlu-mi-1f-lo	ɡlu-mi-1flo
+uk-tu-1βɾeɾ+Masc	uk-tu-1β-ɾe	uk-tu-1βɾe
+u-ni-1floɾ+Masc	u-ni-1f-lo	u-ni-1flo
+u-1βɾeɾ+Masc	u-1β-ɾe	u-1βɾe
+nə-1ɣɾeɾ+Masc	nə-1ɣ-ɾe	nə-1ɣɾe
+rə-mi-1floɾ+Masc	rə-mi-1f-lo	rə-mi-1flo
+li-ɣu-li-1floɾ+Masc	li-ɣu-li-1f-lo	li-ɣu-li-1flo
+bi-nə-1ɣɾeɾ+Masc	bi-nə-1ɣ-ɾe	bi-nə-1ɣɾe
+bə-lə-1ðɾeɾ+Masc	bə-lə-1ð-ɾe	bə-lə-1ðɾe
+bu-ti-1fleɾ+Masc	bu-ti-1f-le	bu-ti-1fle
+ʎi-1βɾeɾ+Masc	ʎi-1β-ɾe	ʎi-1βɾe
+ʎə-1βɾeɾ+Masc	ʎə-1β-ɾe	ʎə-1βɾe
+ʒə-mi-ni-1floɾ+Masc	ʒə-mi-ni-1f-lo	ʒə-mi-ni-1flo
 		
 [Inflection][WordFinObstruentDevoicing]		
 UR	Predicted SR	Correct SR
@@ -180,39 +236,7 @@ uk-1si-ðu+Fem	uk-1si-ðə	uk-1si-ðu-ə
 dis-kun-1ti-nu+Fem	dis-kun-1ti-nə	dis-kun-1ti-nu-ə
 də-1si-ðu+Fem	də-1si-ðə	də-1si-ðu-ə
 		
-[Inflection][SonCorDeletion][Syllabify0]		
-UR	Predicted SR	Correct SR
-kə-ɾə-1βɾun+Masc	kə-ɾə-1β-ɾu	kə-ɾə-1βɾu
-kəuw-li-1floɾ+Masc	kəuw-li-1f-lo	kəuw-li-1flo
-ku-ɾu-li-1floɾ+Masc	ku-ɾu-li-1f-lo	ku-ɾu-li-1flo
-iz-rə-e-1ljan+Masc	iz-rə-e-1l-ja	iz-rə-e-1lja
-mul-ti-1flɔɾ+Masc	mul-ti-1f-lɔ	mul-ti-1flɔ
-mo-nə-nə-1ɣɾin+Masc	mo-nə-nə-1ɣ-ɾi	mo-nə-nə-1ɣɾi
-tu-βi-1floɾ+Masc	tu-βi-1f-lo	tu-βi-1flo
-tu-βu-li-1floɾ+Masc	tu-βu-li-1f-lo	tu-βu-li-1flo
-ə-1ɣɾeɾ+Masc	ə-1ɣ-ɾe	ə-1ɣɾe
-fə-1ðɾin+Masc	fə-1ð-ɾi	fə-1ðɾi
-pə-ɾə-1ɣɾin+Masc	pə-ɾə-1ɣ-ɾi	pə-ɾə-1ɣɾi
-pə-lə-1ɣɾin+Masc	pə-lə-1ɣ-ɾi	pə-lə-1ɣɾi
-pəuw-si-1floɾ+Masc	pəuw-si-1f-lo	pəuw-si-1flo
-sə-1ðɾin+Masc	sə-1ð-ɾi	sə-1ðɾi
-su-1βɾeɾ+Masc	su-1β-ɾe	su-1βɾe
-ɡlu-mi-1floɾ+Masc	ɡlu-mi-1f-lo	ɡlu-mi-1flo
-uk-tu-1βɾeɾ+Masc	uk-tu-1β-ɾe	uk-tu-1βɾe
-u-ni-1floɾ+Masc	u-ni-1f-lo	u-ni-1flo
-u-1βɾeɾ+Masc	u-1β-ɾe	u-1βɾe
-nə-1ɣɾeɾ+Masc	nə-1ɣ-ɾe	nə-1ɣɾe
-rə-mi-1floɾ+Masc	rə-mi-1f-lo	rə-mi-1flo
-li-ɣu-li-1floɾ+Masc	li-ɣu-li-1f-lo	li-ɣu-li-1flo
-bi-nə-1ɣɾeɾ+Masc	bi-nə-1ɣ-ɾe	bi-nə-1ɣɾe
-bə-lə-1ðɾeɾ+Masc	bə-lə-1ð-ɾe	bə-lə-1ðɾe
-bu-ti-1fleɾ+Masc	bu-ti-1f-le	bu-ti-1fle
-ʎi-1βɾeɾ+Masc	ʎi-1β-ɾe	ʎi-1βɾe
-ʎə-1βɾeɾ+Masc	ʎə-1β-ɾe	ʎə-1βɾe
-ʒi-nə-1βɾin+Masc	ʒi-nə-1β-ɾi	ʒi-nə-1βɾi
-ʒə-mi-ni-1floɾ+Masc	ʒə-mi-ni-1f-lo	ʒə-mi-ni-1flo
-		
-[Inflection][SonCorDeletion]		
+[Inflection][TapDeletion]		
 UR	Predicted SR	Correct SR
 kəɾ-βu-1ni-fəɾ+Masc	kəɾ-βu-1ni-fə	kəɾ-βu-1ni-fər
 kər-1ni-βuɾ+Masc	kər-1ni-βu	kər-1ni-βur
@@ -230,13 +254,9 @@ i-1βeɾ+Masc	i-1βe	i-1βer
 iŋ-ku-1loɾ+Masc	iŋ-ku-1lo	iŋ-ku-1lor
 in-sək-1ti-βuɾ+Masc	in-sək-1ti-βu	in-sək-1ti-βur
 in-1nu-məɾ+Masc	in-1nu-mə	in-1nu-mər
-il-lə-ɾi-1an+Masc	il-lə-ɾi-1a	hil-lə-ɾi-1a
 mu-1toɾ+Masc	mu-1to	mu-1tor
 mul-1ti-pəɾ+Masc	mul-1ti-pə	mul-1ti-pər
-mal-1jan+Masc	mal-1ja	ma-li-1a
 tɾi-mu-1toɾ+Masc	tɾi-mu-1to	tɾi-mu-1tor
-turɡ-1man+Masc	turɡ-1ma	turɡ-1man
-ə-fɾu-ə-mə-ɾi-1kan+Masc	ə-fɾu-ə-mə-ɾi-1ka	a-fɾwə-mə-ɾi-1ka
 ə-ɾə-1ni-fəɾ+Masc	ə-ɾə-1ni-fə	ə-ɾə-1ni-fər
 ə-lɛk-tɾu-mu-1toɾ+Masc	ə-lɛk-tɾu-mu-1to	ə-lɛk-tɾu-mu-1tor
 ə-1kwi-fəɾ+Masc	ə-1kwi-fə	ə-1kwi-fər
@@ -245,9 +265,7 @@ turɡ-1man+Masc	turɡ-1ma	turɡ-1man
 ə-1li-fəɾ+Masc	ə-1li-fə	ə-1li-fər
 ə-1βaɾ+Masc	ə-1βa	ə-1βar
 ə-1ðul-təɾ+Masc	ə-1ðul-tə	ə-1ðul-tər
-ə-βə-1jan+Masc	ə-βə-1ja	hə-βə-1ja
 ə-e-1ɾi-fəɾ+Masc	ə-e-1ɾi-fə	ə-e-1ɾi-fər
-əs-tu-ɾi-1an+Masc	əs-tu-ɾi-1a	əs-tu-1ɾja
 əɾ-1βi-βuɾ+Masc	əɾ-1βi-βu	əɾ-1βi-βur
 əuw-1ɾi-fəɾ+Masc	əuw-1ɾi-fə	əuw-1ɾi-fər
 əuws-1teɾ+Masc	əuws-1te	əuws-1ter
@@ -256,29 +274,21 @@ fɾuk-1ti-fəɾ+Masc	fɾuk-1ti-fə	fɾuk-1ti-fər
 fɾu-1ʒi-βuɾ+Masc	fɾu-1ʒi-βu	fɾu-1ʒi-βur
 fu-1tuɾ+Masc	fu-1tu	fu-1tur
 pə-tɾu-1li-fəɾ+Masc	pə-tɾu-1li-fə	pə-tɾu-1li-fər
-pə-nə-mə-ɾi-1kan+Masc	pə-nə-mə-ɾi-1ka	pa-nə-mə-ɾi-1ka
-pə-le-u-1sɛn+Masc	pə-le-u-1sɛ	pə-lə-u-1sɛ
 pər-1ʒuɾ+Masc	pər-1ʒu	pər-1ʒur
 psi-ku-mu-1toɾ+Masc	psi-ku-mu-1to	psi-ku-mu-1tor
 pɾə-mə-1tuɾ+Masc	pɾə-mə-1tu	pɾə-mə-1tur
-pɾə-1ɣon+Masc	pɾə-1ɣo	pɾə-1ɣon
 pɾu-1li-fəɾ+Masc	pɾu-1li-fə	pɾu-1li-fər
 pu-1li-məɾ+Masc	pu-1li-mə	pu-1li-mər
-sə-kəs-pe-ə-ɾi-1an+Masc	sə-kəs-pe-ə-ɾi-1a	ʃəs-pi-ɾi-1a
 sə-mi-1ni-fəɾ+Masc	sə-mi-1ni-fə	sə-mi-1ni-fər
 sə-1βeɾ+Masc	sə-1βe	sə-1βer
-sənd-ʒu-1an+Masc	sənd-ʒu-1a	sənd-ʒu-1an
-səd-mə-1zon+Masc	səd-mə-1zo	sɛd-mə-1zo
 sum-1ni-fəɾ+Masc	sum-1ni-fə	sum-1ni-fər
 su-pu-1ɾi-fəɾ+Masc	su-pu-1ɾi-fə	su-pu-1ɾi-fər
 su-1noɾ+Masc	su-1no	su-1nor
-ɡəl-tə-1plɛn+Masc	ɡəl-tə-1plɛ	ɡal-tə-1plɛ
 um-1ni-βuɾ+Masc	um-1ni-βu	um-1ni-βur
 u-1mi-fəɾ+Masc	u-1mi-fə	u-1mi-fər
 u-1βi-fəɾ+Masc	u-1βi-fə	u-1βi-fər
 ups-1kuɾ+Masc	ups-1ku	ups-1kur
 ul-tɾə-su-1noɾ+Masc	ul-tɾə-su-1no	ul-tɾə-su-1nor
-ni-əss-t͡ʃi-1an+Masc	ni-əss-t͡ʃi-1a	nit-ʃi-1a
 nɛuw-ɾu-mu-1toɾ+Masc	nɛuw-ɾu-mu-1to	nɛuw-ɾu-mu-1tor
 auw-tu-mu-1toɾ+Masc	auw-tu-mu-1to	auw-tu-mu-1tor
 an-ti-su-1noɾ+Masc	an-ti-su-1no	an-ti-su-1nor
@@ -288,17 +298,13 @@ an-ti-su-1noɾ+Masc	an-ti-su-1no	an-ti-su-1nor
 1meɾ+Masc	1me	1mer
 1tar-təɾ+Masc	1tar-tə	1tar-tər
 1pɾɔs-pəɾ+Masc	1pɾɔs-pə	1pɾɔs-pər
-1pɾon+Masc	1pɾo	1pɾon
 1puɾ+Masc	1pu	1pur
 1su-pəɾ+Masc	1su-pə	1su-pər
 1sauwɾ+Masc	1sauw	1sauwr
-1nan+Masc	1na	1nan
 1raɾ+Masc	1ra	1rar
 1bul-ɣəɾ+Masc	1bul-ɣə	1bul-ɣər
-1bɔn+Masc	1bɔ	1bɔn
 1baɾ+Masc	1ba	1bar
 1bajɾ+Masc	1baj	1bajr
-1blan+Masc	1bla	1blan
 1beɾ+Masc	1be	1ber
 1ʎoɾ+Masc	1ʎo	1ʎɔr
 1ɛuws-kəɾ+Masc	1ɛuws-kə	1ɛuws-kər
