@@ -1,7 +1,7 @@
-[Inflection][GlideFinalVocalization][Syllabify0]		
+[Inflection][GlideFinalVocalization][Syllabify]		
 UR	Predicted SR	Correct SR
 		
-[Inflection][InterConFrication][Syllabify0]		
+[Inflection][InterConFrication][Syllabify]		
 UR	Predicted SR	Correct SR
 1kald+Fem	1kal-ðə	1kal-də
 		
@@ -24,21 +24,14 @@ kuʎ-1βɛɾd+Masc	kuʎ-1βɛrt	kɔʎ-1βɛrt
 1ɡɔɾd+Masc	1ɡɔrt	1ɡort
 ʎəŋ-ɡwə-1ʎaɾɡ+Masc	ʎəŋ-ɡwə-1ʎark	ʎeŋ-ɡwə-1ʎark
 		
-[Inflection][Syllabify1]		
-UR	Predicted SR	Correct SR
-kɔn-tɾə-lɛk-tɾu-mu1tɾiu+Masc	kɔn-tɾə-lɛk-tɾu-mu1tɾi-u	kɔn-tɾə-lɛk-tɾu-mu-1tor
-məɡ-nə-tu-mu1tɾiu+Masc	məɡ-nə-tu-mu1tɾi-u	məɡ-nə-tu-mu-1to
-tək1tɾiu+Masc	tək1tɾi-u	tək-1to
-lu-ku-mu1tɾiu+Masc	lu-ku-mu1tɾi-u	lu-ku-mu-1to
-		
-[Inflection][VocDeletion][Syllabify1]		
+[Inflection][VocDeletion][Syllabify]		
 UR	Predicted SR	Correct SR
 kɔn-tɾə-lɛk-tɾu-mu1tɾiu+Fem	kɔn-tɾə-lɛk-tɾu-mu1tɾi-ə	kɔn-tɾə-lɛk-tɾu-mu-1tɾiuw
 məɡ-nə-tu-mu1tɾiu+Fem	məɡ-nə-tu-mu1tɾi-ə	məɡ-nə-tu-mu-1tɾiuw
 tək1tɾiu+Fem	tək1tɾi-ə	tək-1tɾiuw
 lu-ku-mu1tɾiu+Fem	lu-ku-mu1tɾi-ə	lu-ku-mu-1tɾiuw
 		
-[Inflection][NasalDeletion][Syllabify0]		
+[Inflection][NasalDeletion][Syllabify]		
 UR	Predicted SR	Correct SR
 kə-ɾə-1βɾun+Masc	kə-ɾə-1β-ɾu	kə-ɾə-1βɾu
 iz-rə-e-1ljan+Masc	iz-rə-e-1l-ja	iz-rə-e-1lja
@@ -48,20 +41,6 @@ pə-ɾə-1ɣɾin+Masc	pə-ɾə-1ɣ-ɾi	pə-ɾə-1ɣɾi
 pə-lə-1ɣɾin+Masc	pə-lə-1ɣ-ɾi	pə-lə-1ɣɾi
 sə-1ðɾin+Masc	sə-1ð-ɾi	sə-1ðɾi
 ʒi-nə-1βɾin+Masc	ʒi-nə-1β-ɾi	ʒi-nə-1βɾi
-		
-[Inflection][Syllabify0]		
-UR	Predicted SR	Correct SR
-kun-1tiɣw+Fem	kun-1tiɣ-wə	kun-1ti-ɣwə
-əks-tɾə-uɾ-ði-1naɾj+Fem	əks-tɾə-uɾ-ði-1naɾ-jə	əks-tɾə-uɾ-ði-1na-ɾjə
-əm-1biɣw+Fem	əm-1biɣ-wə	əm-1bi-ɣwə
-ə-1βɾe+Masc	ə-1β-ɾe	ə-1βɾeuw
-əɡ-1ziɣw+Fem	əɡ-1ziɣ-wə	əɡ-1zi-ɣwə
-pər-lə-mən-1taɾj+Fem	pər-lə-mən-1taɾ-jə	pər-lə-mən-1ta-ɾjə
-pu-βli-si-1taɾj+Fem	pu-βli-si-1taɾ-jə	pu-βli-si-1ta-ɾjə
-sək-1taɾj+Fem	sək-1taɾ-jə	sək-1ta-ɾjə
-u-mə-ni-1taɾj+Fem	u-mə-ni-1taɾ-jə	u-mə-ni-1ta-ɾjə
-nə-sə-1saɾj+Fem	nə-sə-1saɾ-jə	nə-sə-1sa-ɾjə
-1mal+Fem	1ma-lə	1ma-la
 		
 [Inflection][WordFinStressedLenition]		
 UR	Predicted SR	Correct SR
@@ -78,6 +57,24 @@ su-1pɛɾb+Masc	su-1pɛɾuw	su-1pɛrp
 1ɔɾb+Masc	1ɔɾuw	1ɔrp
 1alb+Masc	1aluw	1alp
 1balb+Masc	1baluw	1balp
+		
+[Inflection][Syllabify]		
+UR	Predicted SR	Correct SR
+kun-1tiɣw+Fem	kun-1tiɣ-wə	kun-1ti-ɣwə
+kɔn-tɾə-lɛk-tɾu-mu1tɾiu+Masc	kɔn-tɾə-lɛk-tɾu-mu1tɾi-u	kɔn-tɾə-lɛk-tɾu-mu-1tor
+məɡ-nə-tu-mu1tɾiu+Masc	məɡ-nə-tu-mu1tɾi-u	məɡ-nə-tu-mu-1to
+tək1tɾiu+Masc	tək1tɾi-u	tək-1to
+əks-tɾə-uɾ-ði-1naɾj+Fem	əks-tɾə-uɾ-ði-1naɾ-jə	əks-tɾə-uɾ-ði-1na-ɾjə
+əm-1biɣw+Fem	əm-1biɣ-wə	əm-1bi-ɣwə
+ə-1βɾe+Masc	ə-1β-ɾe	ə-1βɾeuw
+əɡ-1ziɣw+Fem	əɡ-1ziɣ-wə	əɡ-1zi-ɣwə
+pər-lə-mən-1taɾj+Fem	pər-lə-mən-1taɾ-jə	pər-lə-mən-1ta-ɾjə
+pu-βli-si-1taɾj+Fem	pu-βli-si-1taɾ-jə	pu-βli-si-1ta-ɾjə
+sək-1taɾj+Fem	sək-1taɾ-jə	sək-1ta-ɾjə
+u-mə-ni-1taɾj+Fem	u-mə-ni-1taɾ-jə	u-mə-ni-1ta-ɾjə
+nə-sə-1saɾj+Fem	nə-sə-1saɾ-jə	nə-sə-1sa-ɾjə
+lu-ku-mu1tɾiu+Masc	lu-ku-mu1tɾi-u	lu-ku-mu-1to
+1mal+Fem	1ma-lə	1ma-la
 		
 [Inflection][StressedVowelLowering]		
 UR	Predicted SR	Correct SR
@@ -119,7 +116,7 @@ ni-əss-t͡ʃi-1an+Masc	ni-əss-t͡ʃi-1a	nit-ʃi-1a
 1bɔn+Masc	1bɔ	1bɔn
 1blan+Masc	1bla	1blan
 		
-[Inflection][TapDeletion][Syllabify0]		
+[Inflection][TapDeletion][Syllabify]		
 UR	Predicted SR	Correct SR
 kəuw-li-1floɾ+Masc	kəuw-li-1f-lo	kəuw-li-1flo
 ku-ɾu-li-1floɾ+Masc	ku-ɾu-li-1f-lo	ku-ɾu-li-1flo

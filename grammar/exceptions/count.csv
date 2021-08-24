@@ -542,3 +542,24 @@ RULES	CORRECT	INCORRECT	ORDER
 [Inflection][WordFinStressedLengthening]	29	1	
 [Inflection][WordFinStressedLenition]	594	13	
 	21047	399	
+			
+RULES	CORRECT	INCORRECT	ORDER
+[Inflection]	4625	137	Inflection
+[Inflection][GlideFinalVocalization][Syllabify]	6	0	WordFinStressedLengthening
+[Inflection][HomDeletion]	244	29	TapDeletion
+[Inflection][InterConFrication][Syllabify]	1747	1	NasalDeletion
+[Inflection][NasalDeletion]	717	18	HomDeletion
+[Inflection][NasalDeletion][Syllabify]	0	8	WordFinStressedLenition
+[Inflection][StressedVowelLowering]	15	16	WordFinObstruentDevoicing
+[Inflection][Syllabify]	8657	15	WordFinAffrication
+[Inflection][TapDeletion]	1968	75	InterConFrication
+[Inflection][TapDeletion][Syllabify]	0	21	PreStopTrill
+[Inflection][VocDeletion]	212	29	GlideFinalVocalization
+[Inflection][VocDeletion][StressedVowelLowering]	0	1	VocDeletion
+[Inflection][VocDeletion][Syllabify]	0	4	Syllabify
+[Inflection][WordFinAffrication]	8	2	StressedVowelLowering
+[Inflection][WordFinObstruentDevoicing]	2194	26	
+[Inflection][WordFinObstruentDevoicing][PreStopTrill]	31	3	
+[Inflection][WordFinStressedLengthening]	29	1	
+[Inflection][WordFinStressedLenition]	594	13	
+	21047	399	
